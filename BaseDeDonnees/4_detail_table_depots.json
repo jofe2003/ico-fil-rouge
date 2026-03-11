@@ -1,0 +1,112 @@
+[
+    {
+        "ROUTE_ID":2946091,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2922001,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2958047,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2970877,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2990001,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":3005971,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2604001,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":3016355,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":3027038,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":3044702,
+        "DEPOT_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "DEPOT_LATITUDE":43.37391833,
+        "DEPOT_LONGITUDE":17.60171712,
+        "DEPOT_AVAILABLE_TIME_FROM_MIN":360,
+        "DEPOT_AVAILABLE_TIME_TO_MIN":1080,
+        " ":" "
+    }
+]
