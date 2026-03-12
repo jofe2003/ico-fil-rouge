@@ -3,6 +3,7 @@
 import struct
 import math
 import random
+import time
 from collections import defaultdict
 
 
@@ -543,9 +544,11 @@ afficher_solution(routes_init, cout_init, clients, veh_list, temps_mat, "SOLUTIO
 
 # 4. Tabou
 print("LANCEMENT ALGORITHME TABOU")
+temps_debut = time.time()
 routes_finale, cout_final = tabou_vrp(
     routes_init, dist_mat, temps_mat, clients, veh_list, sdvrp
 )
+temps_exec = time.time() - temps_debut
 afficher_solution(routes_finale, cout_final, clients, veh_list, temps_mat, "SOLUTION FINALE")
 
 # 5. Bilan
@@ -558,6 +561,7 @@ violations = sum(1 for v, route in enumerate(routes_finale)
 print(f"  ROUTE_ID             : {ROUTE_ID_CIBLE}")
 print(f"  Clients              : {n_clients}")
 print(f"  Vehicules            : {n_veh}")
+print(f"  Temps execution      : {temps_exec:.2f} secondes")
 print(f"  Cout initial         : {cout_init:.3f} km")
 print(f"  Cout final           : {cout_final:.3f} km")
 print(f"  Amelioration         : {amelio:.1f}%")
