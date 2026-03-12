@@ -1,13 +1,19 @@
+# -*- coding: utf-8 -*-
 import struct
 import math
 import random
 import time
+import sys
 from collections import defaultdict
 
+# Force l'affichage UTF-8 dans le terminal Windows
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-# ══════════════════════════════════════════════════════════════════════
-# PARAMETRES
-# ══════════════════════════════════════════════════════════════════════
+
+# ==============================================================
+# PARAMETRES  <-- seul bloc a modifier
+# ==============================================================
 
 PATH_DATA      = 'BaseDeDonnees\\ExcelFiles\\'
 PATH_DISTANCES = 'BaseDeDonnees\\ExcelFiles\\6_detail_table_cust_depots_distances.xls'
@@ -23,9 +29,9 @@ NB_MAX_ITER  = 200
 SEED         = 42
 
 
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 # BLOC 1 : LECTURE DES FICHIERS XLS (BIFF8/OLE2)
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 
 def read_xls(filepath):
     with open(filepath, 'rb') as f:
@@ -113,16 +119,18 @@ def read_xls(filepath):
             elif rt == 0x027E and len(rd) >= 10:
                 r,c = struct.unpack_from('<H',rd,0)[0], struct.unpack_from('<H',rd,2)[0]
                 rk = struct.unpack_from('<I', rd, 6)[0]
-                v = float(rk>>2) if rk&2 else struct.unpack('<d', b'\x00\x00\x00\x00'+struct.pack('<I',rk&0xFFFFFFFC))[0]
+                v = float(rk>>2) if rk&2 else struct.unpack(
+                    '<d', b'\x00\x00\x00\x00'+struct.pack('<I',rk&0xFFFFFFFC))[0]
                 if rk&1: v /= 100.0
                 cells[(r,c)] = v
             elif rt == 0x00BD and len(rd) >= 6:
-                r = struct.unpack_from('<H',rd,0)[0]
+                r  = struct.unpack_from('<H',rd,0)[0]
                 c0 = struct.unpack_from('<H',rd,2)[0]
                 pos = 4
                 while pos+6 <= len(rd)-2:
                     rk = struct.unpack_from('<I',rd,pos+2)[0]
-                    v = float(rk>>2) if rk&2 else struct.unpack('<d', b'\x00\x00\x00\x00'+struct.pack('<I',rk&0xFFFFFFFC))[0]
+                    v = float(rk>>2) if rk&2 else struct.unpack(
+                        '<d', b'\x00\x00\x00\x00'+struct.pack('<I',rk&0xFFFFFFFC))[0]
                     if rk&1: v /= 100.0
                     cells[(r,c0)] = v; c0 += 1; pos += 6
             elif rt == 0x0204 and len(rd) >= 8:
@@ -143,9 +151,9 @@ def read_xls(filepath):
     return rows
 
 
-# ══════════════════════════════════════════════════════════════════════
-# BLOC 2 : CHARGEMENT DES DONNEES (une seule lecture, filtrage par route)
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
+# BLOC 2 : CHARGEMENT DES DONNEES
+# ==============================================================
 
 def charger_toutes_donnees():
     """Charge les fichiers XLS une seule fois pour toutes les routes."""
@@ -171,39 +179,44 @@ def extraire_route(route_id, customers_all, vehicles_all, depots_all,
     constraints = filtre(constraints_all)
     distances   = filtre(distances_all)
 
+    def fval(d, key, default):
+        v = d.get(key, '')
+        return float(v) if v != '' else default
+
     depot = {
         'code'    : str(depot_rows[0]['DEPOT_CODE']),
-        'lat'     : float(depot_rows[0]['DEPOT_LATITUDE']),
-        'lon'     : float(depot_rows[0]['DEPOT_LONGITUDE']),
-        'tw_from' : float(depot_rows[0]['DEPOT_AVAILABLE_TIME_FROM_MIN']) if depot_rows[0]['DEPOT_AVAILABLE_TIME_FROM_MIN'] != '' else 0.0,
-        'tw_to'   : float(depot_rows[0]['DEPOT_AVAILABLE_TIME_TO_MIN'])   if depot_rows[0]['DEPOT_AVAILABLE_TIME_TO_MIN']   != '' else 1440.0,
+        'lat'     : fval(depot_rows[0], 'DEPOT_LATITUDE',                0.0),
+        'lon'     : fval(depot_rows[0], 'DEPOT_LONGITUDE',               0.0),
+        'tw_from' : fval(depot_rows[0], 'DEPOT_AVAILABLE_TIME_FROM_MIN', 0.0),
+        'tw_to'   : fval(depot_rows[0], 'DEPOT_AVAILABLE_TIME_TO_MIN', 1440.0),
     }
 
     clients = []
     for c in customers:
         clients.append({
             'code'       : str(c['CUSTOMER_CODE']),
-            'lat'        : float(c['CUSTOMER_LATITUDE']),
-            'lon'        : float(c['CUSTOMER_LONGITUDE']),
-            'poids_kg'   : float(c['TOTAL_WEIGHT_KG'])   if c['TOTAL_WEIGHT_KG']   != '' else 0.0,
-            'volume_m3'  : float(c['TOTAL_VOLUME_M3'])   if c['TOTAL_VOLUME_M3']   != '' else 0.0,
-            'tw_from'    : float(c['CUSTOMER_TIME_WINDOW_FROM_MIN']) if c['CUSTOMER_TIME_WINDOW_FROM_MIN'] != '' else 0.0,
-            'tw_to'      : float(c['CUSTOMER_TIME_WINDOW_TO_MIN'])   if c['CUSTOMER_TIME_WINDOW_TO_MIN']   != '' else 1440.0,
-            'service_min': float(c['CUSTOMER_DELIVERY_SERVICE_TIME_MIN']) if c['CUSTOMER_DELIVERY_SERVICE_TIME_MIN'] != '' else 0.0,
+            'lat'        : fval(c, 'CUSTOMER_LATITUDE',                   0.0),
+            'lon'        : fval(c, 'CUSTOMER_LONGITUDE',                  0.0),
+            'poids_kg'   : fval(c, 'TOTAL_WEIGHT_KG',                     0.0),
+            'volume_m3'  : fval(c, 'TOTAL_VOLUME_M3',                     0.0),
+            'tw_from'    : fval(c, 'CUSTOMER_TIME_WINDOW_FROM_MIN',        0.0),
+            'tw_to'      : fval(c, 'CUSTOMER_TIME_WINDOW_TO_MIN',       1440.0),
+            'service_min': fval(c, 'CUSTOMER_DELIVERY_SERVICE_TIME_MIN',   0.0),
         })
 
-    # Vehicules : on charge aussi les couts reels du zip
+    # Vehicules : couts reels issus du fichier 3_detail_table_vehicles.xls
     veh_list = []
     for v in vehicles:
         veh_list.append({
-            'code'        : str(v['VEHICLE_CODE']),
-            'cap_kg'      : float(v['VEHICLE_TOTAL_WEIGHT_KG'])          if v['VEHICLE_TOTAL_WEIGHT_KG']          != '' else 9999.0,
-            'cap_m3'      : float(v['VEHICLE_TOTAL_VOLUME_M3'])          if v['VEHICLE_TOTAL_VOLUME_M3']          != '' else 9999.0,
-            # Cout variable (€/km) et cout fixe (€) issus du fichier 3
-            'cout_var_km' : float(v['VEHICLE_VARIABLE_COST_KM'])         if v['VEHICLE_VARIABLE_COST_KM']         != '' else 1.0,
-            'cout_fixe'   : float(v['VEHICLE_FIXED_COST_KM'])            if v['VEHICLE_FIXED_COST_KM']            != '' else 0.0,
-            'dispo_from'  : float(v['VEHICLE_AVAILABLE_TIME_FROM_MIN'])   if v['VEHICLE_AVAILABLE_TIME_FROM_MIN']   != '' else 0.0,
-            'dispo_to'    : float(v['VEHICLE_AVAILABLE_TIME_TO_MIN'])     if v['VEHICLE_AVAILABLE_TIME_TO_MIN']     != '' else 1440.0,
+            'code'       : str(v['VEHICLE_CODE']),
+            'cap_kg'     : fval(v, 'VEHICLE_TOTAL_WEIGHT_KG',          9999.0),
+            'cap_m3'     : fval(v, 'VEHICLE_TOTAL_VOLUME_M3',          9999.0),
+            # cout variable en euros/km (VEHICLE_VARIABLE_COST_KM)
+            'cout_var_km': fval(v, 'VEHICLE_VARIABLE_COST_KM',            1.0),
+            # cout fixe en euros par vehicule utilise (VEHICLE_FIXED_COST_KM)
+            'cout_fixe'  : fval(v, 'VEHICLE_FIXED_COST_KM',               0.0),
+            'dispo_from' : fval(v, 'VEHICLE_AVAILABLE_TIME_FROM_MIN',      0.0),
+            'dispo_to'   : fval(v, 'VEHICLE_AVAILABLE_TIME_TO_MIN',    1440.0),
         })
 
     dist_reel  = {}
@@ -211,17 +224,15 @@ def extraire_route(route_id, customers_all, vehicles_all, depots_all,
     for d in distances:
         code      = str(d['CUSTOMER_CODE'])
         direction = str(d['DIRECTION'])
-        dist_km   = float(d['DISTANCE_KM'])       if d['DISTANCE_KM']       != '' else 0.0
-        temps_min = float(d['TIME_DISTANCE_MIN'])  if d['TIME_DISTANCE_MIN']  != '' else 0.0
-        dist_reel [(code, direction)] = dist_km
-        temps_reel[(code, direction)] = temps_min
+        dist_reel [(code, direction)] = float(d['DISTANCE_KM'])      if d['DISTANCE_KM']      != '' else 0.0
+        temps_reel[(code, direction)] = float(d['TIME_DISTANCE_MIN']) if d['TIME_DISTANCE_MIN'] != '' else 0.0
 
     vitesses = []
     for (code, direction), dist in dist_reel.items():
         t = temps_reel.get((code, direction), 0)
         if t > 0 and dist > 0:
-            vitesses.append(dist / (t/60))
-    vitesse_moy = sum(vitesses)/len(vitesses) if vitesses else 50.0
+            vitesses.append(dist / (t / 60.0))
+    vitesse_moy = sum(vitesses) / len(vitesses) if vitesses else 50.0
 
     sdvrp = defaultdict(set)
     for c in constraints:
@@ -231,9 +242,9 @@ def extraire_route(route_id, customers_all, vehicles_all, depots_all,
     return depot, clients, veh_list, dist_reel, temps_reel, vitesse_moy, sdvrp
 
 
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 # BLOC 3 : MATRICES DISTANCES ET TEMPS
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 
 R_TERRE = 6371.0
 
@@ -246,94 +257,80 @@ def haversine(lat1, lon1, lat2, lon2):
 
 
 def construire_matrices(depot, clients, dist_reel, temps_reel, vitesse_moy):
+    """
+    Indice 0 = depot, 1..N = clients.
+    dist_mat[i][j]  : distance en km   de i vers j.
+    temps_mat[i][j] : temps en minutes de i vers j.
+    depot <-> client : distances reelles du fichier 6.
+    client <-> client : Haversine + vitesse moyenne observee.
+    """
     n = len(clients)
     dist_mat  = [[0.0]*(n+1) for _ in range(n+1)]
     temps_mat = [[0.0]*(n+1) for _ in range(n+1)]
 
     for i, ci in enumerate(clients, 1):
-        # depot -> client i : distances reelles du fichier 6
         d_dc = dist_reel.get((ci['code'], 'DEPOT->CUSTOMER'), None)
         t_dc = temps_reel.get((ci['code'], 'DEPOT->CUSTOMER'), None)
         if d_dc is None: d_dc = haversine(depot['lat'], depot['lon'], ci['lat'], ci['lon'])
-        if t_dc is None: t_dc = d_dc / vitesse_moy * 60
+        if t_dc is None: t_dc = d_dc / vitesse_moy * 60.0
 
-        # client i -> depot : distances reelles du fichier 6
         d_cd = dist_reel.get((ci['code'], 'CUSTOMER->DEPOT'), None)
         t_cd = temps_reel.get((ci['code'], 'CUSTOMER->DEPOT'), None)
         if d_cd is None: d_cd = haversine(ci['lat'], ci['lon'], depot['lat'], depot['lon'])
-        if t_cd is None: t_cd = d_cd / vitesse_moy * 60
+        if t_cd is None: t_cd = d_cd / vitesse_moy * 60.0
 
         dist_mat[0][i]  = d_dc;  temps_mat[0][i]  = t_dc
         dist_mat[i][0]  = d_cd;  temps_mat[i][0]  = t_cd
 
-        # client i <-> client j : Haversine + vitesse moyenne observee
         for j, cj in enumerate(clients, 1):
             if i != j:
                 d = haversine(ci['lat'], ci['lon'], cj['lat'], cj['lon'])
                 dist_mat[i][j]  = d
-                temps_mat[i][j] = d / vitesse_moy * 60
+                temps_mat[i][j] = d / vitesse_moy * 60.0
 
     return dist_mat, temps_mat
 
 
-# ══════════════════════════════════════════════════════════════════════
-# BLOC 4 : FONCTION DE COUT  f(x) = sum_k [ cout_fixe_k + cout_var_k * dist_k ]
+# ==============================================================
+# BLOC 4 : FONCTION DE COUT
 #
-# Correspond a la formule du cours :
+# Formule du cours :
 #   f(x) = omega * K(x) + sum_(i,j) in E  c_ij
 #
-# Ici : omega * K(x) = sum_k cout_fixe_k  (coût fixe par véhicule utilisé)
-#       sum c_ij      = sum_k cout_var_k * dist_k  (coût variable par km)
-# ══════════════════════════════════════════════════════════════════════
+# Implementation :
+#   omega * K(x)     = sum_k cout_fixe_k       (cout fixe par vehicule utilise)
+#   sum_(i,j) c_ij   = sum_k cout_var_km_k * dist_k  (cout variable en euros/km)
+#
+# Source des couts : fichier 3_detail_table_vehicles.xls
+# ==============================================================
 
 def calculer_cout(routes, dist_mat, veh_list):
     """
-    Calcule le cout total de la solution en euros :
-      f(x) = sum sur chaque vehicule k de :
-               cout_fixe_k  (si la route n'est pas vide)
-             + cout_var_km_k * distance_totale_k
-
-    Les distances depot<->client viennent du fichier 6 (reelles PTV).
-    Les distances client<->client viennent de Haversine + vitesse moyenne.
+    Retourne le cout total en euros :
+      f(x) = sum_k [ cout_fixe_k + cout_var_km_k * distance_k ]
+    Seuls les vehicules avec au moins un client sont comptes.
     """
     cout_total = 0.0
     for k, route in enumerate(routes):
-        # Ignorer les routes vides (vehicule non utilise)
-        clients_route = [c for c in route if c != 0]
-        if not clients_route:
+        if not any(c != 0 for c in route):
             continue
-
-        cout_var_km = veh_list[k]['cout_var_km']
-        cout_fixe   = veh_list[k]['cout_fixe']
-
-        # Distance totale de la route
-        dist_route = 0.0
-        for idx in range(len(route)-1):
-            dist_route += dist_mat[route[idx]][route[idx+1]]
-
-        # Cout de cette route = fixe + variable * distance
-        cout_total += cout_fixe + cout_var_km * dist_route
-
+        dist_route = sum(dist_mat[route[p]][route[p+1]] for p in range(len(route)-1))
+        cout_total += veh_list[k]['cout_fixe'] + veh_list[k]['cout_var_km'] * dist_route
     return cout_total
 
 
 def calculer_distance_totale(routes, dist_mat):
-    """
-    Calcule la distance totale en km (sans les couts vehicules).
-    Utile pour le bilan et la comparaison.
-    """
-    dist = 0.0
-    for route in routes:
-        for k in range(len(route)-1):
-            dist += dist_mat[route[k]][route[k+1]]
-    return dist
+    """Retourne la distance totale en km (sans les couts vehicules)."""
+    return sum(dist_mat[route[p]][route[p+1]]
+               for route in routes for p in range(len(route)-1))
 
 
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 # BLOC 5 : VERIFICATION DES CONTRAINTES
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 
 def sdvrp_ok(client_idx, veh_code, clients, sdvrp):
+    """Retourne True si le vehicule est autorise a servir ce client."""
     if client_idx == 0: return True
     return veh_code not in sdvrp.get(clients[client_idx-1]['code'], set())
 
@@ -341,8 +338,8 @@ def sdvrp_ok(client_idx, veh_code, clients, sdvrp):
 def fenetres_temps_ok(route, clients, temps_mat, heure_depart):
     """
     Verifie que la route respecte les fenetres de temps [ai, bi].
-    - Attente autorisee si on arrive avant ai
-    - Violation si on arrive apres bi
+    Attente autorisee si on arrive avant ai.
+    Retourne False si on arrive apres bi pour un client.
     """
     t = heure_depart
     for k in range(len(route)-1):
@@ -357,11 +354,15 @@ def fenetres_temps_ok(route, clients, temps_mat, heure_depart):
     return True
 
 
-# ══════════════════════════════════════════════════════════════════════
-# BLOC 6 : SOLUTION INITIALE ALEATOIRE (seed fixe pour reproductibilite)
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
+# BLOC 6 : SOLUTION INITIALE ALEATOIRE
+# ==============================================================
 
 def solution_initiale(n_clients, veh_list, clients, sdvrp, seed):
+    """
+    Construit une solution initiale aleatoire (seed fixe = reproductible).
+    Respecte : capacite poids + contraintes SDVRP.
+    """
     random.seed(seed)
     n_veh   = len(veh_list)
     ordre   = list(range(1, n_clients+1))
@@ -371,14 +372,13 @@ def solution_initiale(n_clients, veh_list, clients, sdvrp, seed):
     non_places = []
 
     for client_idx in ordre:
-        place = False
+        place     = False
         veh_ordre = list(range(n_veh))
         random.shuffle(veh_ordre)
         for v in veh_ordre:
             poids_client = clients[client_idx-1]['poids_kg']
             veh_code     = veh_list[v]['code']
-            cap_kg       = veh_list[v]['cap_kg']
-            if (charges[v] + poids_client <= cap_kg and
+            if (charges[v] + poids_client <= veh_list[v]['cap_kg'] and
                     sdvrp_ok(client_idx, veh_code, clients, sdvrp)):
                 routes[v].append(client_idx)
                 charges[v] += poids_client
@@ -391,43 +391,44 @@ def solution_initiale(n_clients, veh_list, clients, sdvrp, seed):
         routes[v].append(0)
 
     if non_places:
-        print(f"  ATTENTION : {len(non_places)} clients non places !")
+        print("  ATTENTION : {} clients non places !".format(len(non_places)))
 
     return routes
 
 
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 # BLOC 7 : VOISINAGE PAR RELOCATION
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 
 def generer_voisins(routes, clients, veh_list, sdvrp, temps_mat):
     """
     Genere tous les mouvements de relocation valides.
     Un mouvement (client, v_src, pos_src, v_dst, pos_dst) est valide si :
       1. Capacite poids respectee dans la route destination
-      2. Contrainte SDVRP respectee (interdiction client-vehicule)
-      3. Fenetres de temps [ai, bi] respectees dans la route destination
+      2. Contrainte SDVRP respectee
+      3. Fenetres de temps respectees dans la route destination
     """
     voisins = []
     for v_src in range(len(routes)):
         for pos_src, client_idx in enumerate(routes[v_src]):
             if client_idx == 0: continue
+            poids_client = clients[client_idx-1]['poids_kg']
             for v_dst in range(len(routes)):
                 if v_dst == v_src: continue
                 veh_code_dst = veh_list[v_dst]['code']
                 cap_dst      = veh_list[v_dst]['cap_kg']
                 heure_depart = veh_list[v_dst]['dispo_from']
 
-                charge_dst   = sum(clients[c-1]['poids_kg'] for c in routes[v_dst] if c != 0)
-                poids_client = clients[client_idx-1]['poids_kg']
+                charge_dst = sum(clients[c-1]['poids_kg'] for c in routes[v_dst] if c != 0)
                 if charge_dst + poids_client > cap_dst: continue
                 if not sdvrp_ok(client_idx, veh_code_dst, clients, sdvrp): continue
 
                 for pos_dst in range(1, len(routes[v_dst])):
-                    route_test = routes[v_dst][:pos_dst] + [client_idx] + routes[v_dst][pos_dst:]
+                    route_test = (routes[v_dst][:pos_dst]
+                                  + [client_idx]
+                                  + routes[v_dst][pos_dst:])
                     if fenetres_temps_ok(route_test, clients, temps_mat, heure_depart):
                         voisins.append((client_idx, v_src, pos_src, v_dst, pos_dst))
-
     return voisins
 
 
@@ -449,22 +450,22 @@ def mouvement_inverse(mouvement):
     return (client_idx, v_dst, v_src)
 
 
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 # BLOC 8 : ALGORITHME TABOU
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 
 def tabou_vrp(routes_init, dist_mat, temps_mat, clients, veh_list, sdvrp):
     """
     Algorithme Tabou pour le VRP avec fenetres de temps et contraintes SDVRP.
 
     A chaque iteration :
-      1. Generer tous les voisins valides (relocation)
-      2. Choisir le meilleur voisin non tabou (ou tabou si critere d'aspiration)
+      1. Generer tous les voisins valides (relocation inter-routes)
+      2. Choisir le meilleur voisin non tabou
+         (ou tabou si critere d'aspiration : cout < meilleur global)
       3. Appliquer le mouvement et mettre a jour la liste tabou
-      4. Mettre a jour la meilleure solution globale
+      4. Mettre a jour la meilleure solution si amelioration
 
-    Critere d'aspiration : accepter un mouvement tabou si son cout
-    est inferieur au meilleur cout global connu.
+    Arret : NB_MAX_ITER atteint, ou aucun voisin valide.
     """
     routes    = [r[:] for r in routes_init]
     cout      = calculer_cout(routes, dist_mat, veh_list)
@@ -478,18 +479,16 @@ def tabou_vrp(routes_init, dist_mat, temps_mat, clients, veh_list, sdvrp):
         nbiter += 1
         voisins = generer_voisins(routes, clients, veh_list, sdvrp, temps_mat)
         if not voisins:
-            print("  Aucun voisin valide -> arret anticipe")
+            print("  Aucun voisin valide -> arret anticipe a l'iter {}".format(nbiter))
             break
 
         best_mv = None; best_cout = float('inf'); best_routes = None
         for mv in voisins:
             new_routes = appliquer_mouvement(routes, mv)
             new_cout   = calculer_cout(new_routes, dist_mat, veh_list)
-            is_tabou   = est_tabou(mv, tabou)
-            # Critere d'aspiration : on accepte meme si tabou
-            aspiration = new_cout < cout_s
-
-            if (not is_tabou) or aspiration:
+            is_tab     = est_tabou(mv, tabou)
+            aspiration = new_cout < cout_s   # critere d'aspiration
+            if (not is_tab) or aspiration:
                 if new_cout < best_cout:
                     best_cout = new_cout; best_mv = mv; best_routes = new_routes
 
@@ -501,49 +500,50 @@ def tabou_vrp(routes_init, dist_mat, temps_mat, clients, veh_list, sdvrp):
         if len(tabou) > TAILLE_TABOU: tabou.pop(0)
 
         if cout < cout_s:
-            cout_s = cout; routes_s = [r[:] for r in routes]
+            cout_s    = cout
+            routes_s  = [r[:] for r in routes]
             meil_iter = nbiter
 
     return routes_s, cout_s, meil_iter
 
 
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 # BLOC 9 : AFFICHAGE DETAIL D'UNE SOLUTION
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
 
 def afficher_solution(routes, clients, veh_list, temps_mat, titre):
-    print(f"\n{'='*65}")
-    print(f"{titre}")
-    print(f"{'='*65}")
+    SEP = "=" * 65
+    print("\n" + SEP)
+    print(titre)
+    print(SEP)
     for v, route in enumerate(routes):
-        n_cli      = len([c for c in route if c != 0])
-        charge_kg  = sum(clients[c-1]['poids_kg'] for c in route if c != 0)
-        charge_m3  = sum(clients[c-1]['volume_m3'] for c in route if c != 0)
-        cap_kg     = veh_list[v]['cap_kg']
-        cap_m3     = veh_list[v]['cap_m3']
-        hdep       = veh_list[v]['dispo_from']
-        tw_ok      = fenetres_temps_ok(route, clients, temps_mat, hdep)
-        statut     = "OK" if tw_ok else "VIOLATION TW"
-        codes      = ['Depot' if c == 0 else clients[c-1]['code'] for c in route]
-        print(f"  V{v+1} [{veh_list[v]['code']}] ({n_cli} clients) "
-              f"charge={charge_kg:.1f}/{cap_kg:.0f}kg "
-              f"vol={charge_m3:.2f}/{cap_m3:.2f}m3 [{statut}]")
-        print(f"    {' -> '.join(codes)}")
+        n_cli     = sum(1 for c in route if c != 0)
+        charge_kg = sum(clients[c-1]['poids_kg']  for c in route if c != 0)
+        charge_m3 = sum(clients[c-1]['volume_m3'] for c in route if c != 0)
+        cap_kg    = veh_list[v]['cap_kg']
+        cap_m3    = veh_list[v]['cap_m3']
+        hdep      = veh_list[v]['dispo_from']
+        statut    = "OK" if fenetres_temps_ok(route, clients, temps_mat, hdep) else "VIOLATION TW"
+        codes     = ['Depot' if c == 0 else clients[c-1]['code'] for c in route]
+        print("  V{} [{}] ({} clients) poids={:.1f}/{:.0f}kg vol={:.2f}/{:.2f}m3 [{}]".format(
+            v+1, veh_list[v]['code'], n_cli,
+            charge_kg, cap_kg, charge_m3, cap_m3, statut))
+        print("    " + " -> ".join(codes))
     print()
 
 
-# ══════════════════════════════════════════════════════════════════════
-# BLOC 10 : TRAITEMENT D'UNE ROUTE COMPLETE
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
+# BLOC 10 : TRAITEMENT COMPLET D'UNE ROUTE
+# ==============================================================
 
 def traiter_route(route_id, customers_all, vehicles_all, depots_all,
                   constraints_all, distances_all, verbose=False):
     """
     Pipeline complet pour une route :
-      1. Extraire les donnees
-      2. Construire les matrices
-      3. Generer la solution initiale
-      4. Lancer Tabou
+      1. Extraire les donnees du zip
+      2. Construire les matrices distances/temps
+      3. Generer la solution initiale aleatoire (seed fixe)
+      4. Lancer l'algorithme Tabou
       5. Retourner les resultats
     """
     depot, clients, veh_list, dist_reel, temps_reel, vitesse_moy, sdvrp = \
@@ -564,82 +564,88 @@ def traiter_route(route_id, customers_all, vehicles_all, depots_all,
         afficher_solution(routes_init, clients, veh_list, temps_mat, "SOLUTION INITIALE")
 
     temps_debut = time.time()
-    routes_finale, cout_final, meil_iter = tabou_vrp(
+    routes_fin, cout_final, meil_iter = tabou_vrp(
         routes_init, dist_mat, temps_mat, clients, veh_list, sdvrp)
     temps_exec = time.time() - temps_debut
 
-    dist_finale = calculer_distance_totale(routes_finale, dist_mat)
-    amelio      = (cout_init - cout_final) / cout_init * 100 if cout_init > 0 else 0.0
-    violations  = sum(1 for v, route in enumerate(routes_finale)
-                      if not fenetres_temps_ok(route, clients, temps_mat,
-                                               veh_list[v]['dispo_from']))
+    dist_fin   = calculer_distance_totale(routes_fin, dist_mat)
+    amelio     = (cout_init - cout_final) / cout_init * 100 if cout_init > 0 else 0.0
+    violations = sum(
+        1 for v, route in enumerate(routes_fin)
+        if not fenetres_temps_ok(route, clients, temps_mat, veh_list[v]['dispo_from'])
+    )
 
     if verbose:
-        afficher_solution(routes_finale, clients, veh_list, temps_mat, "SOLUTION FINALE")
+        afficher_solution(routes_fin, clients, veh_list, temps_mat, "SOLUTION FINALE")
 
     return {
         'route_id'   : route_id,
         'n_clients'  : n_clients,
         'n_veh'      : n_veh,
-        'cout_init'  : cout_init,    # en euros (cout_fixe + cout_var * dist)
-        'cout_final' : cout_final,   # en euros
-        'dist_init'  : dist_init,    # en km (pour info)
-        'dist_finale': dist_finale,  # en km (pour info)
-        'amelio'     : amelio,       # amelioration en %
+        'cout_init'  : cout_init,    # euros : cout_fixe + cout_var_km * dist
+        'cout_final' : cout_final,   # euros
+        'dist_init'  : dist_init,    # km    : distance totale (info)
+        'dist_fin'   : dist_fin,     # km
+        'amelio'     : amelio,       # %
         'meil_iter'  : meil_iter,
-        'temps_exec' : temps_exec,
-        'violations' : violations,
+        'temps_exec' : temps_exec,   # secondes (algo Tabou uniquement)
+        'violations' : violations,   # nb routes avec violation TW
     }
 
 
-# ══════════════════════════════════════════════════════════════════════
-# BLOC 11 : PROGRAMME PRINCIPAL — BOUCLE SUR LES 11 ROUTES
-# ══════════════════════════════════════════════════════════════════════
+# ==============================================================
+# BLOC 11 : PROGRAMME PRINCIPAL -- BOUCLE SUR LES 11 ROUTES
+# ==============================================================
 
 if __name__ == "__main__":
-    print("="*65)
-    print("VRP TABOU - DONNEES REELLES PTV - 11 ROUTES")
-    print(f"Parametres : TAILLE_TABOU={TAILLE_TABOU}, "
-          f"NB_MAX_ITER={NB_MAX_ITER}, SEED={SEED}")
-    print("="*65)
+    SEP1 = "=" * 70
+    SEP2 = "-" * 70
 
-    # Chargement des fichiers une seule fois pour toutes les routes
-    customers_all, vehicles_all, depots_all, constraints_all, distances_all = \
-        charger_toutes_donnees()
+    print(SEP1)
+    print("VRP TABOU - DONNEES REELLES PTV - 11 ROUTES")
+    print("Parametres : TAILLE_TABOU={}, NB_MAX_ITER={}, SEED={}".format(
+        TAILLE_TABOU, NB_MAX_ITER, SEED))
+    print(SEP1)
+
+    # Chargement une seule fois pour toutes les routes
+    (customers_all, vehicles_all, depots_all,
+     constraints_all, distances_all) = charger_toutes_donnees()
 
     resultats = []
 
-    # Boucle sur les 11 routes
     for i, route_id in enumerate(ALL_ROUTE_IDS, 1):
-        print(f"\n[{i:>2}/11] ROUTE_ID={route_id}", end="  ")
+        print("\n[{:>2}/11] ROUTE_ID={}...".format(i, route_id))
         try:
             res = traiter_route(
                 route_id,
                 customers_all, vehicles_all, depots_all,
                 constraints_all, distances_all,
-                verbose=False   # Mettre True pour afficher le detail de chaque route
+                verbose=False   # passer a True pour le detail de chaque route
             )
             resultats.append(res)
-            print(f"| {res['n_clients']:>3} clients | {res['n_veh']} veh "
-                  f"| init={res['cout_init']:>9.2f}€ "
-                  f"| final={res['cout_final']:>9.2f}€ "
-                  f"| amelio={res['amelio']:>5.1f}% "
-                  f"| {res['temps_exec']:>6.1f}s "
-                  f"| TW_viol={res['violations']}")
+            print("  -> {} clients | {} veh | "
+                  "init={:.2f} EUR | final={:.2f} EUR | "
+                  "dist={:.1f} km | amelio={:.1f}% | "
+                  "{:.1f}s | TW_viol={}".format(
+                res['n_clients'], res['n_veh'],
+                res['cout_init'], res['cout_final'],
+                res['dist_fin'],  res['amelio'],
+                res['temps_exec'], res['violations']))
         except Exception as e:
-            print(f"\n  ERREUR sur route {route_id} : {e}")
+            print("  ERREUR sur route {} : {}".format(route_id, e))
 
-    # ══════════════════════════════════════════════════════════════════
+    # ----------------------------------------------------------
     # BILAN GLOBAL
-    # ══════════════════════════════════════════════════════════════════
-    print("\n" + "="*75)
-    print("BILAN GLOBAL — TOUTES LES ROUTES")
-    print("="*75)
-    print(f"{'ROUTE_ID':<12} {'Clients':>7} {'Veh':>4} "
-          f"{'Cout_init (€)':>14} {'Cout_final (€)':>14} "
-          f"{'Dist_init(km)':>14} {'Dist_fin(km)':>13} "
-          f"{'Amelio':>8} {'Temps(s)':>9} {'ViolTW':>7}")
-    print("-"*75)
+    # ----------------------------------------------------------
+    print("\n" + SEP1)
+    print("BILAN GLOBAL -- TOUTES LES ROUTES")
+    print(SEP1)
+    print("{:<12} {:>7} {:>4} {:>13} {:>13} {:>12} {:>11} {:>8} {:>9} {:>7}".format(
+        "ROUTE_ID", "Clients", "Veh",
+        "Init (EUR)", "Final (EUR)",
+        "Dist_i(km)", "Dist_f(km)",
+        "Amelio", "Temps(s)", "ViolTW"))
+    print(SEP2)
 
     total_cout_init  = 0.0
     total_cout_final = 0.0
@@ -648,33 +654,39 @@ if __name__ == "__main__":
     total_temps      = 0.0
 
     for r in resultats:
-        print(f"{r['route_id']:<12} {r['n_clients']:>7} {r['n_veh']:>4} "
-              f"{r['cout_init']:>14.2f} {r['cout_final']:>14.2f} "
-              f"{r['dist_init']:>14.2f} {r['dist_finale']:>13.2f} "
-              f"{r['amelio']:>7.1f}% {r['temps_exec']:>9.2f} {r['violations']:>7}")
+        print("{:<12} {:>7} {:>4} {:>13.2f} {:>13.2f} {:>12.2f} {:>11.2f} {:>7.1f}% {:>9.2f} {:>7}".format(
+            r['route_id'], r['n_clients'], r['n_veh'],
+            r['cout_init'], r['cout_final'],
+            r['dist_init'], r['dist_fin'],
+            r['amelio'], r['temps_exec'], r['violations']))
         total_cout_init  += r['cout_init']
         total_cout_final += r['cout_final']
         total_dist_init  += r['dist_init']
-        total_dist_fin   += r['dist_finale']
+        total_dist_fin   += r['dist_fin']
         total_temps      += r['temps_exec']
 
-    amelio_globale = (total_cout_init - total_cout_final) / total_cout_init * 100
-    print("-"*75)
-    print(f"{'TOTAL':<12} "
-          f"{'':>7} {'':>4} "
-          f"{total_cout_init:>14.2f} {total_cout_final:>14.2f} "
-          f"{total_dist_init:>14.2f} {total_dist_fin:>13.2f} "
-          f"{amelio_globale:>7.1f}% {total_temps:>9.2f}")
-    print("="*75)
-    print(f"\nParametres utilises :")
-    print(f"  TAILLE_TABOU = {TAILLE_TABOU}")
-    print(f"  NB_MAX_ITER  = {NB_MAX_ITER}")
-    print(f"  SEED         = {SEED}")
-    print(f"\nLegende :")
-    print(f"  Cout (€)  = cout_fixe_vehicule + cout_variable_km * distance_km")
-    print(f"             (source : fichier 3_detail_table_vehicles.xls)")
-    print(f"  Dist (km) = distances reelles PTV (depot<->client)")
-    print(f"              + Haversine (client<->client)")
-    print(f"  ViolTW    = nombre de routes avec au moins 1 violation de fenetre de temps")
-    print(f"\nNombre de routes traitees : {len(resultats)} / {len(ALL_ROUTE_IDS)}")
-    print("="*75)
+    amelio_globale = (total_cout_init - total_cout_final) / total_cout_init * 100 \
+                     if total_cout_init > 0 else 0.0
+
+    print(SEP2)
+    print("{:<12} {:>7} {:>4} {:>13.2f} {:>13.2f} {:>12.2f} {:>11.2f} {:>7.1f}% {:>9.2f}".format(
+        "TOTAL", "", "",
+        total_cout_init, total_cout_final,
+        total_dist_init, total_dist_fin,
+        amelio_globale, total_temps))
+    print(SEP1)
+
+    print("\nParametres utilises :")
+    print("  TAILLE_TABOU = {}".format(TAILLE_TABOU))
+    print("  NB_MAX_ITER  = {}".format(NB_MAX_ITER))
+    print("  SEED         = {}".format(SEED))
+    print("\nLegende :")
+    print("  Init/Final (EUR) = cout_fixe_vehicule + cout_var_km * distance_km")
+    print("                     (source : fichier 3_detail_table_vehicles.xls)")
+    print("  Dist (km)        = distances reelles PTV (depot<->client)")
+    print("                     + Haversine (client<->client)")
+    print("  ViolTW           = nb de routes avec au moins 1 violation de fenetre de temps")
+    print("  Temps (s)        = temps d'execution de l'algorithme Tabou uniquement")
+    print("\nNombre de routes traitees : {} / {}".format(
+        len(resultats), len(ALL_ROUTE_IDS)))
+    print(SEP1)
