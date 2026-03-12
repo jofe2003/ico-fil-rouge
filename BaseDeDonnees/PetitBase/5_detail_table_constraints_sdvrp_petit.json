@@ -1,0 +1,121 @@
+[
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":1,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"921336",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":2,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"132531",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-703",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":3,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"132531",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":4,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"921003",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":5,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"921003",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-702",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":6,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"921003",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-703",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":7,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"920968",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":8,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"1564",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":9,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"920968",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-703",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":10,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"921336",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-703",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":11,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"1564",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-703",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":12,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"920968",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-702",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":13,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"921336",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-702",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":14,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"1564",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-702",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":15,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"131251",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":16,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"1149",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"875-M-523",
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "SDVRP_CONSTRAINT_NUMBER":17,
+        "SDVRP_CONSTRAINT_CUSTOMER_CODE":"132531",
+        "SDVRP_CONSTRAINT_VEHICLE_CODE":"O76-T-702",
+        " ":" "
+    }
+]

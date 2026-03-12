@@ -1,0 +1,1582 @@
+[
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"587",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":28.349,
+        "TIME_DISTANCE_MIN":36.124,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":1,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"587",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":28.349,
+        "TIME_DISTANCE_MIN":36.124,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":2,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"139381",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":120.193,
+        "TIME_DISTANCE_MIN":128.821,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":2,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"139381",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":120.234,
+        "TIME_DISTANCE_MIN":128.865,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":3,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15362",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":97.191,
+        "TIME_DISTANCE_MIN":105.622,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":3,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15362",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":97.495,
+        "TIME_DISTANCE_MIN":105.622,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":4,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"144593",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":95.007,
+        "TIME_DISTANCE_MIN":102.289,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":4,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"144593",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":95.312,
+        "TIME_DISTANCE_MIN":102.289,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":5,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1408",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":21.388,
+        "TIME_DISTANCE_MIN":23.408,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":5,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1408",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":21.378,
+        "TIME_DISTANCE_MIN":23.419,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":6,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923163",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":30.163,
+        "TIME_DISTANCE_MIN":33.66,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":6,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923163",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":30.138,
+        "TIME_DISTANCE_MIN":33.638,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":7,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15031",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.976,
+        "TIME_DISTANCE_MIN":102.795,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":7,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15031",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.644,
+        "TIME_DISTANCE_MIN":102.509,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":8,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136174",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":30.162,
+        "TIME_DISTANCE_MIN":33.66,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":8,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136174",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":30.136,
+        "TIME_DISTANCE_MIN":33.638,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":9,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"139459",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":94.918,
+        "TIME_DISTANCE_MIN":102.047,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":9,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"139459",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":95.222,
+        "TIME_DISTANCE_MIN":102.058,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":10,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923170",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":96.836,
+        "TIME_DISTANCE_MIN":104.852,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":10,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923170",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":97.14,
+        "TIME_DISTANCE_MIN":104.852,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":11,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920420",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":95.311,
+        "TIME_DISTANCE_MIN":102.476,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":11,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920420",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":95.615,
+        "TIME_DISTANCE_MIN":102.476,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":12,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"137634",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":21.749,
+        "TIME_DISTANCE_MIN":23.672,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":12,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"137634",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":21.757,
+        "TIME_DISTANCE_MIN":23.683,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":13,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"137637",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":66.673,
+        "TIME_DISTANCE_MIN":70.895,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":13,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"137637",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":66.659,
+        "TIME_DISTANCE_MIN":70.862,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":14,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922111",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":21.456,
+        "TIME_DISTANCE_MIN":22.484,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":14,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922111",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":21.468,
+        "TIME_DISTANCE_MIN":22.495,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":15,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131752",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":100.105,
+        "TIME_DISTANCE_MIN":103.279,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":15,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131752",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.768,
+        "TIME_DISTANCE_MIN":102.927,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":16,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15308",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.637,
+        "TIME_DISTANCE_MIN":102.322,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":16,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15308",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.678,
+        "TIME_DISTANCE_MIN":102.355,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":17,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1564",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":22.566,
+        "TIME_DISTANCE_MIN":25.454,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":17,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1564",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":22.554,
+        "TIME_DISTANCE_MIN":25.421,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":18,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922169",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":42.639,
+        "TIME_DISTANCE_MIN":45.089,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":18,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922169",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":49.183,
+        "TIME_DISTANCE_MIN":49.896,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":19,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"10825",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":23.633,
+        "TIME_DISTANCE_MIN":27.291,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":19,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"10825",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":23.401,
+        "TIME_DISTANCE_MIN":27.038,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":20,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136683",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":98.825,
+        "TIME_DISTANCE_MIN":106.062,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":20,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136683",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.129,
+        "TIME_DISTANCE_MIN":106.073,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":21,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1657",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.856,
+        "TIME_DISTANCE_MIN":102.399,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":21,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1657",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.843,
+        "TIME_DISTANCE_MIN":102.388,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":22,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1072",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":96.393,
+        "TIME_DISTANCE_MIN":103.609,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":22,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1072",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":96.697,
+        "TIME_DISTANCE_MIN":103.62,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":23,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"142318",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":78.902,
+        "TIME_DISTANCE_MIN":80.993,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":23,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"142318",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":78.944,
+        "TIME_DISTANCE_MIN":81.037,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":24,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"838",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":73.251,
+        "TIME_DISTANCE_MIN":89.177,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":24,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"838",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":73.334,
+        "TIME_DISTANCE_MIN":89.265,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":25,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1065",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":98.314,
+        "TIME_DISTANCE_MIN":105.501,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":25,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1065",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":98.618,
+        "TIME_DISTANCE_MIN":105.501,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":26,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"143063",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":32.134,
+        "TIME_DISTANCE_MIN":41.888,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":26,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"143063",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":32.16,
+        "TIME_DISTANCE_MIN":41.734,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":27,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"742",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":28.324,
+        "TIME_DISTANCE_MIN":36.19,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":27,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"742",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":28.324,
+        "TIME_DISTANCE_MIN":36.19,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":28,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"7896",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":67.526,
+        "TIME_DISTANCE_MIN":71.775,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":28,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"7896",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":67.475,
+        "TIME_DISTANCE_MIN":71.709,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":29,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15161",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.857,
+        "TIME_DISTANCE_MIN":102.399,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":29,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15161",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.52,
+        "TIME_DISTANCE_MIN":102.047,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":30,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15209",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":31.638,
+        "TIME_DISTANCE_MIN":35.629,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":30,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15209",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":31.595,
+        "TIME_DISTANCE_MIN":35.585,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":31,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15210",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":96.038,
+        "TIME_DISTANCE_MIN":103.18,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":31,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"15210",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":96.342,
+        "TIME_DISTANCE_MIN":103.191,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":32,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921336",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":21.254,
+        "TIME_DISTANCE_MIN":23.111,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":32,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921336",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":21.244,
+        "TIME_DISTANCE_MIN":23.122,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":33,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"142687",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.35,
+        "TIME_DISTANCE_MIN":101.992,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":33,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"142687",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.392,
+        "TIME_DISTANCE_MIN":102.036,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":34,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"7552",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":31.714,
+        "TIME_DISTANCE_MIN":35.794,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":34,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"7552",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":31.671,
+        "TIME_DISTANCE_MIN":35.75,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":35,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1097",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":96.838,
+        "TIME_DISTANCE_MIN":103.994,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":35,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1097",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":97.142,
+        "TIME_DISTANCE_MIN":104.005,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":36,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136677",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":97.844,
+        "TIME_DISTANCE_MIN":107.052,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":36,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136677",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":98.148,
+        "TIME_DISTANCE_MIN":107.052,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":37,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1664",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.784,
+        "TIME_DISTANCE_MIN":102.542,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":37,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1664",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.825,
+        "TIME_DISTANCE_MIN":102.575,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":38,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922656",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.519,
+        "TIME_DISTANCE_MIN":102.102,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":38,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922656",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.56,
+        "TIME_DISTANCE_MIN":102.146,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":39,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922137",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.853,
+        "TIME_DISTANCE_MIN":102.399,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":39,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922137",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.84,
+        "TIME_DISTANCE_MIN":102.377,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":40,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920497",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":31.977,
+        "TIME_DISTANCE_MIN":36.366,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":40,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920497",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":31.934,
+        "TIME_DISTANCE_MIN":36.322,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":41,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1149",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":32.631,
+        "TIME_DISTANCE_MIN":37.818,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":41,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1149",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":32.549,
+        "TIME_DISTANCE_MIN":37.686,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":42,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"990",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":22.515,
+        "TIME_DISTANCE_MIN":25.311,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":42,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"990",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":22.503,
+        "TIME_DISTANCE_MIN":25.278,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":43,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131250",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":22.484,
+        "TIME_DISTANCE_MIN":26.103,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":43,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131250",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":23.085,
+        "TIME_DISTANCE_MIN":26.587,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":44,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131251",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":32.876,
+        "TIME_DISTANCE_MIN":38.346,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":44,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131251",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":32.955,
+        "TIME_DISTANCE_MIN":38.566,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":45,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131252",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":31.653,
+        "TIME_DISTANCE_MIN":35.662,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":45,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131252",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":31.61,
+        "TIME_DISTANCE_MIN":35.618,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":46,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131247",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":21.967,
+        "TIME_DISTANCE_MIN":24.002,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":46,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131247",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":21.49,
+        "TIME_DISTANCE_MIN":24.035,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":47,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921003",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":21.248,
+        "TIME_DISTANCE_MIN":23.122,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":47,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921003",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":21.247,
+        "TIME_DISTANCE_MIN":23.133,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":48,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922014",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":4.047,
+        "TIME_DISTANCE_MIN":4.994,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":48,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922014",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":4.047,
+        "TIME_DISTANCE_MIN":4.994,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":49,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"132531",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":19.958,
+        "TIME_DISTANCE_MIN":21.406,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":49,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"132531",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":19.963,
+        "TIME_DISTANCE_MIN":21.417,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":50,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1071",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":95.956,
+        "TIME_DISTANCE_MIN":103.103,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":50,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1071",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":96.26,
+        "TIME_DISTANCE_MIN":103.114,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":51,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922045",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":95.014,
+        "TIME_DISTANCE_MIN":102.311,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":51,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922045",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":95.318,
+        "TIME_DISTANCE_MIN":102.311,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":52,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920631",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":33.594,
+        "TIME_DISTANCE_MIN":39.93,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":52,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920631",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":33.551,
+        "TIME_DISTANCE_MIN":39.886,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":53,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1405",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":29.912,
+        "TIME_DISTANCE_MIN":31.075,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":53,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1405",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":29.915,
+        "TIME_DISTANCE_MIN":31.075,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":54,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1077",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":98.752,
+        "TIME_DISTANCE_MIN":106.073,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":54,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1077",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.056,
+        "TIME_DISTANCE_MIN":106.084,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":55,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"140062",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":74.248,
+        "TIME_DISTANCE_MIN":89.65,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":55,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"140062",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":74.306,
+        "TIME_DISTANCE_MIN":89.716,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":56,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131279",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.626,
+        "TIME_DISTANCE_MIN":102.498,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":56,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131279",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.667,
+        "TIME_DISTANCE_MIN":102.542,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":57,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131280",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.473,
+        "TIME_DISTANCE_MIN":102.069,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":57,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131280",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.514,
+        "TIME_DISTANCE_MIN":102.113,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":58,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"140048",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":30.368,
+        "TIME_DISTANCE_MIN":33.913,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":58,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"140048",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":30.275,
+        "TIME_DISTANCE_MIN":33.825,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":59,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"938",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":29.704,
+        "TIME_DISTANCE_MIN":30.866,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":59,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"938",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":29.707,
+        "TIME_DISTANCE_MIN":30.866,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":60,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"307",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":32.536,
+        "TIME_DISTANCE_MIN":37.598,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":60,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"307",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":32.493,
+        "TIME_DISTANCE_MIN":37.554,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":61,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1075",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.684,
+        "TIME_DISTANCE_MIN":106.975,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":61,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1075",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.988,
+        "TIME_DISTANCE_MIN":106.975,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":62,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"142015",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":30.556,
+        "TIME_DISTANCE_MIN":34.133,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":62,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"142015",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":30.513,
+        "TIME_DISTANCE_MIN":34.089,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":63,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920233",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":96.05,
+        "TIME_DISTANCE_MIN":103.202,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":63,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920233",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":96.354,
+        "TIME_DISTANCE_MIN":103.202,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":64,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"969",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":32.35,
+        "TIME_DISTANCE_MIN":37.213,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":64,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"969",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":32.307,
+        "TIME_DISTANCE_MIN":37.169,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":65,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920968",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":22.801,
+        "TIME_DISTANCE_MIN":25.916,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":65,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"920968",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":22.789,
+        "TIME_DISTANCE_MIN":25.872,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":66,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131820",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":67.727,
+        "TIME_DISTANCE_MIN":72.017,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":66,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"131820",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":67.713,
+        "TIME_DISTANCE_MIN":71.984,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":67,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923845",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":67.214,
+        "TIME_DISTANCE_MIN":71.412,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":67,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923845",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":67.2,
+        "TIME_DISTANCE_MIN":71.379,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":68,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"138131",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":99.328,
+        "TIME_DISTANCE_MIN":101.948,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":68,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"138131",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":100.079,
+        "TIME_DISTANCE_MIN":102.718,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":69,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922513",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":96.092,
+        "TIME_DISTANCE_MIN":103.301,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":69,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922513",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":96.396,
+        "TIME_DISTANCE_MIN":103.312,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":70,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921194",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":100.203,
+        "TIME_DISTANCE_MIN":102.619,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":70,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921194",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":99.012,
+        "TIME_DISTANCE_MIN":101.409,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":71,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921195",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":93.167,
+        "TIME_DISTANCE_MIN":95.601,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":71,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921195",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":93.208,
+        "TIME_DISTANCE_MIN":95.634,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":72,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921561",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":38.127,
+        "TIME_DISTANCE_MIN":40.678,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":72,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"921561",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":38.609,
+        "TIME_DISTANCE_MIN":40.942,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":73,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923275",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":97.051,
+        "TIME_DISTANCE_MIN":105.336,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":73,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923275",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":97.354,
+        "TIME_DISTANCE_MIN":105.336,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":74,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922995",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":98.168,
+        "TIME_DISTANCE_MIN":107.767,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":74,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"922995",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":98.472,
+        "TIME_DISTANCE_MIN":107.767,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":75,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"168",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":63.32,
+        "TIME_DISTANCE_MIN":65.351,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":75,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"168",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":63.361,
+        "TIME_DISTANCE_MIN":65.395,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":76,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1892",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":22.457,
+        "TIME_DISTANCE_MIN":25.465,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":76,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1892",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":22.999,
+        "TIME_DISTANCE_MIN":25.784,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":77,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1648",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":67.659,
+        "TIME_DISTANCE_MIN":72.314,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":77,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"1648",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":67.646,
+        "TIME_DISTANCE_MIN":72.281,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":78,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136347",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":67.659,
+        "TIME_DISTANCE_MIN":72.314,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":78,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"136347",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":67.646,
+        "TIME_DISTANCE_MIN":72.281,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":79,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923737",
+        "DIRECTION":"DEPOT->CUSTOMER",
+        "DISTANCE_KM":62.786,
+        "TIME_DISTANCE_MIN":69.476,
+        " ":" "
+    },
+    {
+        "ROUTE_ID":2939484,
+        "CUSTOMER_NUMBER":79,
+        "DEPOT_CODE":1000,
+        "CUSTOMER_CODE":"923737",
+        "DIRECTION":"CUSTOMER->DEPOT",
+        "DISTANCE_KM":62.869,
+        "TIME_DISTANCE_MIN":69.564,
+        " ":" "
+    }
+]
