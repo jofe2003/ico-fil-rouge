@@ -25,7 +25,7 @@ ALL_ROUTE_IDS = [
 ]
 
 TAILLE_TABOU = 7
-NB_MAX_ITER  = 200
+NB_MAX_ITER  = 500
 SEED         = 42
 
 
