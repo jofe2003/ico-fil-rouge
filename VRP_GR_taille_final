@@ -17,7 +17,7 @@ PATH_DISTANCES = 'BaseDeDonnees\\ExcelFiles\\6_detail_table_cust_depots_distance
 # 2970877, 2990001, 3005971, 3016355, 3027038, 3044702
 ROUTE_ID_CIBLE = 2946091
 TAILLE_TABOU   = 7
-NB_MAX_ITER    = 3415
+NB_MAX_ITER    = 4000
 SEED           = 42
 
 
