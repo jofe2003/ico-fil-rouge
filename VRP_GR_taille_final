@@ -20,9 +20,9 @@ NB_MAX_ITER    = 200
 SEED           = 42
 
 
-# =============================================================
-# BLOC 1 : LECTURE DES FICHIERS XLS (BIFF8/OLE2)
-# =============================================================
+
+# LECTURE DES FICHIERS XLS (BIFF8/OLE2)
+
 
 def read_xls(filepath):
     with open(filepath, 'rb') as f:
@@ -231,11 +231,10 @@ def charger_donnees(route_id):
     return depot, clients, veh_list, dist_reel, temps_reel, vitesse_moy, sdvrp
 
 
-# =============================================================
+
 # BLOC 3 : MATRICES DISTANCES ET TEMPS
-# =============================================================
+
 # Indice 0 = depot, 1..N = clients
-#
 # dist_mat[i][j]  : distance en km   de i vers j
 # temps_mat[i][j] : temps en minutes de i vers j
 
@@ -280,9 +279,8 @@ def construire_matrices(depot, clients, dist_reel, temps_reel, vitesse_moy):
     return dist_mat, temps_mat
 
 
-# =============================================================
 # BLOC 4 : COUT D'UNE SOLUTION
-# =============================================================
+
 
 def calculer_cout(routes, dist_mat):
     cout = 0.0
@@ -292,9 +290,8 @@ def calculer_cout(routes, dist_mat):
     return cout
 
 
-# =============================================================
+
 # BLOC 5 : VERIFICATION DES CONTRAINTES
-# =============================================================
 
 def capacite_ok(route, clients, veh_cap_kg):
     charge = sum(clients[c-1]['poids_kg'] for c in route if c != 0)
@@ -333,9 +330,9 @@ def fenetres_temps_ok(route, clients, temps_mat, heure_depart):
     return True
 
 
-# =============================================================
+
 # BLOC 6 : SOLUTION INITIALE
-# =============================================================
+
 
 def solution_initiale(n_clients, veh_list, clients, sdvrp, seed):
     random.seed(seed)
@@ -372,9 +369,9 @@ def solution_initiale(n_clients, veh_list, clients, sdvrp, seed):
     return routes
 
 
-# =============================================================
+
 # BLOC 7 : VOISINAGE PAR RELOCATION
-# =============================================================
+
 
 def generer_voisins(routes, clients, veh_list, sdvrp, temps_mat):
     """
@@ -509,9 +506,9 @@ def afficher_solution(routes, cout, clients, veh_list, temps_mat, titre):
     print()
 
 
-# =============================================================
+
 # PROGRAMME PRINCIPAL
-# =============================================================
+
 
 print("="*65)
 print("VRP TABOU - DONNEES REELLES PTV - AVEC FENETRES DE TEMPS")
