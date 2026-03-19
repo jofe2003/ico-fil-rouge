@@ -25,13 +25,13 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parents[1]
 print(ROOT_DIR)
 # ── BDD Grande taille ──────────────────────
-DATA_DIR = ROOT_DIR / "BaseDeDonnees" / "BaseExcel"
+DATA_DIR = ROOT_DIR / "ico-fil-rouge" / "BaseDeDonnees" / "BaseExcel"
 
 # ── BDD Petite taille ──────────────────────
-PETIT_DIR = ROOT_DIR / "BaseDeDonnees" / "PetitBaseExcel"
+PETIT_DIR = ROOT_DIR / "ico-fil-rouge" / "BaseDeDonnees" / "PetitBaseExcel"
 
 # ── Dossier de sortie des résultats ────────
-OUT_DIR = ROOT_DIR / "Results" / "RecuitSimule"
+OUT_DIR = ROOT_DIR / "ico-fil-rouge" / "Results" / "RecuitSimule"
 
 # Paramètres Recuit Simulé
 SA_PARAMS = dict(

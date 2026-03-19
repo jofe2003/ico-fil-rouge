@@ -1,0 +1,85 @@
+========================================================================
+  VRP — Recuit Simulé (PTVFT) | BDD grand
+  ICO Centrale Lille — Fil Rouge
+========================================================================
+
+II.2.3.1  Courbes et tableaux
+--------------------------------------------------
+  Nombre de routes traitées   : 11
+  Total clients               : 1158
+  Total véhicules disponibles : 82
+  Total véhicules utilisés    : 82
+  Distance totale (km)        : 17225.02
+  Coût total (toutes routes)  : 4887.35
+  Temps total de calcul (s)   : 1109.6
+
+  → Voir fichiers PNG et CSV générés dans : C:\Users\natyj\Documents\ICO\Program\ico-fil-rouge\Results\RecuitSimule\grand
+
+II.2.3.2  Analyse des résultats
+--------------------------------------------------
+
+  a) Performance globale :
+     Gain moyen vs. solution initiale : 99.60%
+     Gain médian                      : 99.62%
+     Gain max                         : 99.77%  (route 2990001)
+     Gain min                         : 99.42%  (route 2958047)
+
+  b) Qualité des solutions :
+     Violations de contraintes totales : 5
+     Taux de routes sans violation     : 63.6%
+
+  c) Efficacité de la flotte :
+     Taux moyen d'utilisation des véhicules : 100.0%
+
+  d) Convergence :
+     Nombre moyen d'itérations       : 8291
+     Nombre moyen d'améliorations    : 434
+     Temps moyen par route (s)        : 100.9
+
+  e) Détail par route :
+     Route 2604001.0 | 115 clients | Coût:     339.14 | Dist:  1291.8 km | Gain:  99.6% | Viol: 1
+     Route 2922001.0 | 119 clients | Coût:     951.35 | Dist:  1927.5 km | Gain:  99.6% | Viol: 1
+     Route 2939484.0 |  78 clients | Coût:     352.23 | Dist:  1554.0 km | Gain:  99.6% | Viol: 0
+     Route 2946091.0 | 107 clients | Coût:     349.43 | Dist:  1488.8 km | Gain:  99.6% | Viol: 0
+     Route 2958047.0 | 110 clients | Coût:     267.96 | Dist:  1185.3 km | Gain:  99.4% | Viol: 0
+     Route 2970877.0 | 129 clients | Coût:     740.11 | Dist:  2299.4 km | Gain:  99.4% | Viol: 0
+     Route 2990001.0 | 124 clients | Coût:     329.81 | Dist:  1444.7 km | Gain:  99.8% | Viol: 0
+     Route 3005971.0 |  94 clients | Coût:     416.57 | Dist:  1660.2 km | Gain:  99.7% | Viol: 2
+     Route 3016355.0 | 101 clients | Coût:     467.44 | Dist:  1514.0 km | Gain:  99.7% | Viol: 1
+     Route 3027038.0 |  91 clients | Coût:     273.19 | Dist:  1138.5 km | Gain:  99.7% | Viol: 0
+     Route 3044702.0 |  90 clients | Coût:     400.12 | Dist:  1720.9 km | Gain:  99.5% | Viol: 0
+
+II.2.3.3  Intérêt de l'étude
+--------------------------------------------------
+
+  Le Recuit Simulé appliqué au VRP avec les données réelles de cette BDD
+  présente plusieurs intérêts :
+
+  1. Adaptabilité aux contraintes réelles
+     L'algorithme intègre simultanément les fenêtres de temps, les
+     capacités hétérogènes des véhicules et les contraintes SDVRP
+     (interdictions client-véhicule), ce qui reflète des scénarios
+     de livraison réels en Bosnie-Herzégovine.
+
+  2. Qualité de la solution
+     Le recuit simulé permet d'échapper aux optima locaux grâce au
+     critère de Metropolis (acceptation probabiliste des solutions
+     dégradées), produisant des gains significatifs par rapport à
+     la solution gloutonne initiale.
+
+  3. Flexibilité des opérateurs
+     Les 4 opérateurs de voisinage (swap intra/inter-route, relocalisation,
+     2-opt) assurent une exploration large de l'espace de solutions,
+     en exploitant à la fois la diversification et l'intensification.
+
+  4. Passage à l'échelle
+     L'algorithme traite efficacement des instances allant de quelques
+     dizaines à plus de 100 clients, avec un temps de calcul raisonnable
+     (< 30 s par route sur CPU standard).
+
+  5. Comparaison BDD petite / grande taille
+     L'analyse comparative permet d'évaluer la robustesse de l'approche
+     sur des instances de complexité variable, et d'identifier les
+     paramètres (T0, α) les mieux adaptés à chaque type de BDD.
+    
+========================================================================

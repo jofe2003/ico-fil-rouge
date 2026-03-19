@@ -1,0 +1,75 @@
+========================================================================
+  VRP — Recuit Simulé (PTVFT) | BDD petit
+  ICO Centrale Lille — Fil Rouge
+========================================================================
+
+II.2.2.1  Courbes et tableaux
+--------------------------------------------------
+  Nombre de routes traitées   : 1
+  Total clients               : 20
+  Total véhicules disponibles : 3
+  Total véhicules utilisés    : 2
+  Distance totale (km)        : 401.47
+  Coût total (toutes routes)  : 78.85
+  Temps total de calcul (s)   : 7.0
+
+  → Voir fichiers PNG et CSV générés dans : C:\Users\natyj\Documents\ICO\Program\ico-fil-rouge\Results\RecuitSimule\petit
+
+II.2.2.2  Analyse des résultats
+--------------------------------------------------
+
+  a) Performance globale :
+     Gain moyen vs. solution initiale : 98.37%
+     Gain médian                      : 98.37%
+     Gain max                         : 98.37%  (route 2939484)
+     Gain min                         : 98.37%  (route 2939484)
+
+  b) Qualité des solutions :
+     Violations de contraintes totales : 0
+     Taux de routes sans violation     : 100.0%
+
+  c) Efficacité de la flotte :
+     Taux moyen d'utilisation des véhicules : 66.7%
+
+  d) Convergence :
+     Nombre moyen d'itérations       : 5675
+     Nombre moyen d'améliorations    : 78
+     Temps moyen par route (s)        : 7.0
+
+  e) Détail par route :
+     Route 2939484.0 |  20 clients | Coût:      78.85 | Dist:   401.5 km | Gain:  98.4% | Viol: 0
+
+II.2.2.3  Intérêt de l'étude
+--------------------------------------------------
+
+  Le Recuit Simulé appliqué au VRP avec les données réelles de cette BDD
+  présente plusieurs intérêts :
+
+  1. Adaptabilité aux contraintes réelles
+     L'algorithme intègre simultanément les fenêtres de temps, les
+     capacités hétérogènes des véhicules et les contraintes SDVRP
+     (interdictions client-véhicule), ce qui reflète des scénarios
+     de livraison réels en Bosnie-Herzégovine.
+
+  2. Qualité de la solution
+     Le recuit simulé permet d'échapper aux optima locaux grâce au
+     critère de Metropolis (acceptation probabiliste des solutions
+     dégradées), produisant des gains significatifs par rapport à
+     la solution gloutonne initiale.
+
+  3. Flexibilité des opérateurs
+     Les 4 opérateurs de voisinage (swap intra/inter-route, relocalisation,
+     2-opt) assurent une exploration large de l'espace de solutions,
+     en exploitant à la fois la diversification et l'intensification.
+
+  4. Passage à l'échelle
+     L'algorithme traite efficacement des instances allant de quelques
+     dizaines à plus de 100 clients, avec un temps de calcul raisonnable
+     (< 30 s par route sur CPU standard).
+
+  5. Comparaison BDD petite / grande taille
+     L'analyse comparative permet d'évaluer la robustesse de l'approche
+     sur des instances de complexité variable, et d'identifier les
+     paramètres (T0, α) les mieux adaptés à chaque type de BDD.
+    
+========================================================================
