@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 OMEGA = 500.0
-DEFAULT_ROUTE_ID = 2604001
+DEFAULT_ROUTE_ID = 2939484
 
 GA_OUTER_CYCLES = 10
 GA_POPULATION_SIZE = 16
