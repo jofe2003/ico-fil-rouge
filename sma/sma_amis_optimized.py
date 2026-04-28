@@ -727,6 +727,123 @@ def swap_move(routes):
     return cand
 
 
+def intra_route_swap_move(routes):
+    cand = [r[:] for r in routes]
+    candidates = [k for k, r in enumerate(cand) if len(r) >= 2]
+    if not candidates:
+        return cand
+    k = random.choice(candidates)
+    i, j = random.sample(range(len(cand[k])), 2)
+    cand[k][i], cand[k][j] = cand[k][j], cand[k][i]
+    return cand
+
+
+def inter_route_swap_move(routes):
+    return swap_move(routes)
+
+
+def intra_route_shift_move(routes):
+    cand = [r[:] for r in routes]
+    candidates = [k for k, r in enumerate(cand) if len(r) >= 2]
+    if not candidates:
+        return cand
+    k = random.choice(candidates)
+    i = random.randrange(len(cand[k]))
+    node = cand[k].pop(i)
+    j = random.randrange(len(cand[k]) + 1)
+    cand[k].insert(j, node)
+    return cand
+
+
+def inter_route_shift_move(routes):
+    cand = [r[:] for r in routes]
+    sources = [k for k, r in enumerate(cand) if r]
+    if not sources:
+        return cand
+    ks = random.choice(sources)
+    destinations = [k for k in range(len(cand)) if k != ks]
+    if not destinations:
+        return cand
+    kd = random.choice(destinations)
+    i = random.randrange(len(cand[ks]))
+    node = cand[ks].pop(i)
+    j = random.randrange(len(cand[kd]) + 1)
+    cand[kd].insert(j, node)
+    return cand
+
+
+def two_intra_route_swap_move(routes):
+    cand = [r[:] for r in routes]
+    candidates = [k for k, r in enumerate(cand) if len(r) >= 4]
+    if not candidates:
+        return cand
+    k = random.choice(candidates)
+    n = len(cand[k])
+    valid = [(a, b) for a in range(n - 1) for b in range(n - 1) if abs(a - b) >= 2]
+    if not valid:
+        return cand
+    a, b = random.choice(valid)
+    if a > b:
+        a, b = b, a
+    first = cand[k][a:a + 2]
+    second = cand[k][b:b + 2]
+    cand[k][a:a + 2] = second
+    cand[k][b:b + 2] = first
+    return cand
+
+
+def two_intra_route_shift_move(routes):
+    cand = [r[:] for r in routes]
+    candidates = [k for k, r in enumerate(cand) if len(r) >= 4]
+    if not candidates:
+        return cand
+    k = random.choice(candidates)
+    i = random.randrange(len(cand[k]) - 1)
+    pair = cand[k][i:i + 2]
+    del cand[k][i:i + 2]
+    j = random.randrange(len(cand[k]) + 1)
+    cand[k][j:j] = pair
+    return cand
+
+
+def insert_clients_best(cand, removed, instance):
+    for c in removed:
+        best_routes = None
+        best_score = float('inf')
+        for k in range(len(cand)):
+            for pos in range(len(cand[k]) + 1):
+                trial = [r[:] for r in cand]
+                trial[k].insert(pos, c)
+                sc = evaluate(instance, trial).penalized
+                if sc < best_score:
+                    best_score = sc
+                    best_routes = trial
+        cand = best_routes
+    return cand
+
+
+def eliminate_smallest_route_move(routes, instance):
+    cand = [r[:] for r in routes]
+    non_empty = [k for k, r in enumerate(cand) if r]
+    if len(non_empty) < 2:
+        return cand
+    k = min(non_empty, key=lambda idx: len(cand[idx]))
+    removed = cand[k][:]
+    cand[k] = []
+    return insert_clients_best(cand, removed, instance)
+
+
+def eliminate_random_route_move(routes, instance):
+    cand = [r[:] for r in routes]
+    non_empty = [k for k, r in enumerate(cand) if r]
+    if len(non_empty) < 2:
+        return cand
+    k = random.choice(non_empty)
+    removed = cand[k][:]
+    cand[k] = []
+    return insert_clients_best(cand, removed, instance)
+
+
 def intra_two_opt_move(routes, instance):
     cand = [r[:] for r in routes]
     candidates = [k for k, r in enumerate(cand) if len(r) >= 4]
@@ -742,7 +859,6 @@ def destroy_repair_move(routes, instance):
     assigned = [c for r in cand for c in r]
     if len(assigned) < 3:
         return cand
-
     remove_n = max(1, len(assigned) // 10)
     removed = []
     for _ in range(remove_n):
@@ -752,32 +868,84 @@ def destroy_repair_move(routes, instance):
         k = random.choice(non_empty)
         pos = random.randrange(len(cand[k]))
         removed.append(cand[k].pop(pos))
+    return insert_clients_best(cand, removed, instance)
 
-    for c in removed:
-        best_routes = None
-        best_score = float('inf')
-        for k in range(len(cand)):
-            for pos in range(len(cand[k]) + 1):
-                trial = [r[:] for r in cand]
-                trial[k].insert(pos, c)
-                sc = evaluate(instance, trial).penalized
-                if sc < best_score:
-                    best_score = sc
-                    best_routes = trial
-        cand = best_routes
 
-    return cand
+QL_ACTIONS = ['intra_swap', 'inter_swap', 'intra_shift', 'inter_shift', 'two_intra_swap', 'two_intra_shift', 'eliminate_smallest_route', 'eliminate_random_route']
+
+
+class QLearningController:
+    def __init__(self, alpha=0.10, gamma=0.90, epsilon=0.20, epsilon_decay=0.995, min_epsilon=0.05):
+        self.alpha = alpha
+        self.gamma = gamma
+        self.epsilon = epsilon
+        self.epsilon_decay = epsilon_decay
+        self.min_epsilon = min_epsilon
+        self.q = {}
+
+    def values(self, state):
+        if state not in self.q:
+            self.q[state] = np.zeros(len(QL_ACTIONS), dtype=float)
+        return self.q[state]
+
+    def choose(self, state):
+        values = self.values(state)
+        if random.random() < self.epsilon:
+            return random.randrange(len(QL_ACTIONS))
+        best = np.flatnonzero(values == values.max())
+        return int(random.choice(best))
+
+    def update(self, state, action_idx, reward, next_state):
+        values = self.values(state)
+        next_values = self.values(next_state)
+        target = reward + self.gamma * float(np.max(next_values))
+        values[action_idx] = (1.0 - self.alpha) * values[action_idx] + self.alpha * target
+        self.epsilon = max(self.min_epsilon, self.epsilon * self.epsilon_decay)
+
+
+def q_state(solution, instance):
+    used = sum(1 for r in solution.routes if r)
+    nveh = max(1, len(instance.vehicle_codes))
+    used_bucket = min(2, int(3 * used / nveh))
+    penalty_bucket = 1 if solution.penalties > 1e-9 else 0
+    cost_bucket = min(4, int(solution.objective // 500.0))
+    return used_bucket, penalty_bucket, cost_bucket
+
+
+def apply_neighbor_action(routes, instance, action):
+    if action == 'intra_swap':
+        return intra_route_swap_move(routes)
+    if action == 'inter_swap':
+        return inter_route_swap_move(routes)
+    if action == 'intra_shift':
+        return intra_route_shift_move(routes)
+    if action == 'inter_shift':
+        return inter_route_shift_move(routes)
+    if action == 'two_intra_swap':
+        return two_intra_route_swap_move(routes)
+    if action == 'two_intra_shift':
+        return two_intra_route_shift_move(routes)
+    if action == 'eliminate_smallest_route':
+        return eliminate_smallest_route_move(routes, instance)
+    if action == 'eliminate_random_route':
+        return eliminate_random_route_move(routes, instance)
+    return destroy_repair_move(routes, instance)
+
+
+def q_learning_neighbor(current, instance, ql, source=''):
+    state = q_state(current, instance)
+    action_idx = ql.choose(state)
+    candidate_routes = apply_neighbor_action(current.routes, instance, QL_ACTIONS[action_idx])
+    candidate = evaluate(instance, candidate_routes, source=source)
+    reward = current.penalized - candidate.penalized
+    next_state = q_state(candidate, instance)
+    ql.update(state, action_idx, reward, next_state)
+    return candidate
 
 
 def mutate_routes(routes, instance):
-    op = random.choice(['relocate', 'swap', 'two_opt', 'destroy'])
-    if op == 'relocate':
-        return relocate_move(routes)
-    if op == 'swap':
-        return swap_move(routes)
-    if op == 'two_opt':
-        return intra_two_opt_move(routes, instance)
-    return destroy_repair_move(routes, instance)
+    action = random.choice(QL_ACTIONS)
+    return apply_neighbor_action(routes, instance, action)
 
 
 def route_based_crossover(parent1, parent2, instance):
@@ -820,16 +988,20 @@ def route_based_crossover(parent1, parent2, instance):
     return evaluate(instance, child, source='ga')
 
 
-def intensify_from_friend(friend, instance):
+def intensify_from_friend(friend, instance, ql=None, source=''):
     candidate = friend.clone()
+    candidate.source = source or friend.source
+    if ql is not None:
+        return q_learning_neighbor(candidate, instance, ql, source=candidate.source)
     candidate.routes = mutate_routes(candidate.routes, instance)
-    return evaluate(instance, candidate.routes, source=friend.source)
+    return evaluate(instance, candidate.routes, source=candidate.source)
 
 
 def genetic_agent(instance, pool, seed=42):
     random.seed(seed)
     np.random.seed(seed)
     result = AgentResult('genetic')
+    ql = QLearningController()
 
     population = [excel_order_initial_solution(instance), greedy_initial_solution(instance, seed)]
     while len(population) < GA_POPULATION_SIZE:
@@ -851,13 +1023,14 @@ def genetic_agent(instance, pool, seed=42):
             child = route_based_crossover(p1, p2, instance)
 
             if random.random() < GA_MUTATION_RATE:
-                child = evaluate(instance, mutate_routes(child.routes, instance), source='genetic')
+                child = q_learning_neighbor(child, instance, ql, source='genetic')
 
             if random.random() < GA_FRIEND_RATE:
                 friend = pool.sample_friend(exclude_source='genetic')
                 if friend is not None:
                     result.friend_imports += 1
                     friend_child = route_based_crossover(child, friend, instance)
+                    friend_child = q_learning_neighbor(friend_child, instance, ql, source='genetic')
                     if friend_child.penalized + 1e-9 < child.penalized:
                         result.friend_improvements += 1
                         child = friend_child
@@ -882,6 +1055,7 @@ def simulated_annealing_agent(instance, pool, seed=43):
     random.seed(seed)
     np.random.seed(seed)
     result = AgentResult('annealing')
+    ql = QLearningController()
 
     current = excel_order_initial_solution(instance)
     current.source = 'annealing'
@@ -891,8 +1065,7 @@ def simulated_annealing_agent(instance, pool, seed=43):
 
     for _ in range(SA_OUTER_CYCLES):
         for _ in range(SA_INNER_ITER):
-            candidate_routes = mutate_routes(current.routes, instance)
-            candidate = evaluate(instance, candidate_routes, source='annealing')
+            candidate = q_learning_neighbor(current, instance, ql, source='annealing')
             delta = candidate.penalized - current.penalized
             if delta < 0 or random.random() < math.exp(-delta / max(1e-9, temp)):
                 current = candidate
@@ -905,8 +1078,7 @@ def simulated_annealing_agent(instance, pool, seed=43):
             friend = pool.sample_friend(exclude_source='annealing')
             if friend is not None:
                 result.friend_imports += 1
-                candidate = intensify_from_friend(friend, instance)
-                candidate.source = 'annealing'
+                candidate = intensify_from_friend(friend, instance, ql=ql, source='annealing')
                 if candidate.penalized + 1e-9 < current.penalized:
                     result.friend_improvements += 1
                     current = candidate
@@ -1054,6 +1226,7 @@ def tabu_agent(instance, pool, seed=44):
     random.seed(seed)
     np.random.seed(seed)
     result = AgentResult('tabu')
+    ql = QLearningController()
 
     current = excel_order_initial_solution(instance)
     current.source = 'tabu'
@@ -1068,6 +1241,8 @@ def tabu_agent(instance, pool, seed=44):
                 break
             current = neighbor
             tabu.add(inverse_move)
+            if random.random() < 0.35:
+                current = q_learning_neighbor(current, instance, ql, source='tabu')
             if current.penalized + 1e-9 < best.penalized:
                 best = current.clone()
                 pool.add(best)
@@ -1076,8 +1251,7 @@ def tabu_agent(instance, pool, seed=44):
             friend = pool.sample_friend(exclude_source='tabu')
             if friend is not None:
                 result.friend_imports += 1
-                candidate = intensify_from_friend(friend, instance)
-                candidate.source = 'tabu'
+                candidate = intensify_from_friend(friend, instance, ql=ql, source='tabu')
                 if candidate.penalized + 1e-9 < current.penalized:
                     result.friend_improvements += 1
                     current = candidate
@@ -1461,7 +1635,7 @@ def load_instance_from_folder(root='.', route_id=None):
 
 def print_report(instance, results, best, elapsed):
     print('=' * 72)
-    print('SMA VRP - Collaboration Amis')
+    print('SMA VRP - Collaboration Amis + Q-Learning')
     print('=' * 72)
     print(f'ROUTE_ID: {instance.route_id}')
     print(f'Clients: {len(instance.customer_codes)} | Vehicles: {len(instance.vehicle_codes)}')
@@ -1478,7 +1652,7 @@ if __name__ == '__main__':
     root = Path(__file__).resolve().parent
     route_id_env = os.getenv('ROUTE_ID')
     route_id = int(route_id_env) if route_id_env else DEFAULT_ROUTE_ID
-    output_dir = root / 'resultats_images' / f'sma_amis_route_{route_id}'
+    output_dir = root / 'resultats_images' / f'sma_amis_optimized_route_{route_id}'
 
     t0 = time.time()
     instance = load_instance_from_folder(root=root, route_id=route_id)
