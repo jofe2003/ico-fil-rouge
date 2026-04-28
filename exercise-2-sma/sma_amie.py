@@ -1310,16 +1310,91 @@ def choose_route_id(customers_df, route_id=None):
     return int(route_id)
 
 
-def load_instance_from_folder(route_id=None):
-    files = detect_dataset('..\\database\\')
-    customers = read_table(files['customers'])
-    vehicles = read_table(files['vehicles'])
-    depots = read_table(files['depots'])
-    constraints = read_table(files['constraints'])
-    distances = read_table(files['distances'])
-    rid = choose_route_id(customers, route_id=route_id)
-    return build_instance(customers, vehicles, depots, constraints, distances, rid)
+# def load_instance_from_folder(route_id=None):
+#     # files = detect_dataset('..\\database\\')
+#     customers = pd.read_excel('..\\database\\2_detail_table_customers.xls')
+#     vehicles = pd.read_excel('..\\database\\3_detail_table_vehicles.xls')
+#     depots = pd.read_excel('..\\database\\4_detail_table_depots.xls')
+#     constraints = pd.read_excel('..\\database\\5_detail_table_constraints_sdvrp.xls')
+#     distances = pd.read_excel('..\\database\\6_detail_table_cust_depots_distances.xls')
+#     rid = choose_route_id(customers, route_id=route_id)
+#     return build_instance(customers, vehicles, depots, constraints, distances, rid)
 
+import matplotlib.pyplot as plt
+import pandas as pd
+from pathlib import Path
+
+def save_report_table_image(instance, results, best, elapsed, out_path):
+    """
+    Gera uma imagem de tabela com o relatório de resultados e salva no disco.
+    """
+    # 1. Preparar os dados para a tabela
+    data = []
+    for res in results:
+        data.append([
+            res.name,
+            f"{res.best.penalized:.2f}",
+            f"{res.best.objective:.2f}",
+            f"{res.best.penalties:.2f}",
+            str(res.friend_imports),
+            str(res.friend_improvements)
+        ])
+    
+    # Adicionar o "global_best" como a última linha
+    data.append([
+        "global_best",
+        f"{best.penalized:.2f}",
+        f"{best.objective:.2f}",
+        f"{best.penalties:.2f}",
+        "-",  # Sem imports para o global best
+        "-"   # Sem gains para o global best
+    ])
+    
+    # Nomes das colunas
+    columns = ["Agent", "Penalized", "f(x) Objective", "Penalties", "Imports", "Gains"]
+    df = pd.DataFrame(data, columns=columns)
+    
+    # 2. Configurar o plot usando matplotlib
+    # Ajustar a altura da imagem dinamicamente baseada na quantidade de agentes
+    fig_height = 2 + len(data) * 0.5
+    fig, ax = plt.subplots(figsize=(10, fig_height))
+    
+    # Esconder os eixos normais do gráfico
+    ax.axis('off')
+    ax.axis('tight')
+    
+    # Desenhar a tabela
+    table = ax.table(cellText=df.values, colLabels=df.columns, loc='center', cellLoc='center')
+    table.auto_set_font_size(False)
+    table.set_fontsize(10)
+    table.scale(1.2, 1.8) # Estica um pouco as células para ficar legível
+    
+    # Colorir os cabeçalhos para ficar mais bonito
+    for (row, col), cell in table.get_celld().items():
+        if row == 0:
+            cell.set_text_props(weight='bold', color='white')
+            cell.set_facecolor('#4c72b0')
+    
+    # 3. Adicionar o cabeçalho (Metadados) como título da imagem
+    title_text = (
+        f"SMA VRP - Collaboration Amis\n"
+        f"ROUTE_ID: {instance.route_id} | "
+        f"Clients: {len(instance.customer_codes)} | "
+        f"Vehicles: {len(instance.vehicle_codes)} | "
+        f"Temps total: {elapsed:.2f}s"
+    )
+    plt.title(title_text, fontsize=12, pad=20, fontweight='bold')
+    
+    # 4. Salvar a imagem no diretório
+    # out_path = Path(output_dir)
+    # out_path.mkdir(parents=True, exist_ok=True)
+    file_path = out_path / f"13_report_table_route_{instance.route_id}.png"
+    
+    plt.tight_layout()
+    plt.savefig(file_path, dpi=200, bbox_inches='tight')
+    plt.close()
+    
+    print(f"Tabela de resumo salva como imagem em: {file_path}")
 
 def print_report(instance, results, best, elapsed):
     print('=' * 72)
@@ -1338,12 +1413,27 @@ def print_report(instance, results, best, elapsed):
 
 if __name__ == '__main__':
     root = Path(__file__).resolve().parent
-    route_id_env = os.getenv('ROUTE_ID')
-    route_id = int(route_id_env) if route_id_env else DEFAULT_ROUTE_ID
-    output_dir = root / 'resultats_images' / f'sma_amis_route_{route_id}'
 
-    t0 = time.time()
-    instance = load_instance_from_folder(route_id=route_id)
-    results, best, pool = run_sma_amis(instance, output_dir=output_dir, seed=42)
-    elapsed = time.time() - t0
-    print_report(instance, results, best, elapsed)
+    # ── Grande taille ────────────────────────────────────────────────
+    customersDf = pd.read_excel("..\\database\\2_detail_table_customers.xls")
+
+    ALL_ROUTES = sorted(customersDf["ROUTE_ID"].unique().tolist())
+
+    customers = pd.read_excel('..\\database\\2_detail_table_customers.xls')
+    vehicles = pd.read_excel('..\\database\\3_detail_table_vehicles.xls')
+    depots = pd.read_excel('..\\database\\4_detail_table_depots.xls')
+    constraints = pd.read_excel('..\\database\\5_detail_table_constraints_sdvrp.xls')
+    distances = pd.read_excel('..\\database\\6_detail_table_cust_depots_distances.xls')
+
+    for route_id in ALL_ROUTES:
+        # route_id_env = os.getenv('ROUTE_ID')
+        # route_id = int(route_id_env) if route_id_env else DEFAULT_ROUTE_ID
+        rid = choose_route_id(customers, route_id=route_id)
+        output_dir = root / 'resultats_images' / 'amis' / f'sma_amis_route_{route_id}'
+
+        t0 = time.time()
+        instance = build_instance(customers, vehicles, depots, constraints, distances, rid)
+        results, best, pool = run_sma_amis(instance, output_dir=output_dir, seed=42)
+        elapsed = time.time() - t0
+        save_report_table_image(instance, results, best, elapsed, out_path=Path(output_dir))
+        print_report(instance, results, best, elapsed)
