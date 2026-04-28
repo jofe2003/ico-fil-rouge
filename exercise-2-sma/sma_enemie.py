@@ -1329,7 +1329,7 @@ def choose_route_id(customers_df, route_id=None):
     return int(route_id)
 
 
-def load_instance_from_folder(root='.', route_id=None):
+def load_instance_from_folder(route_id=None):
     files = detect_dataset('..\\database\\')
     customers = read_table(files['customers'])
     vehicles = read_table(files['vehicles'])
@@ -1362,7 +1362,7 @@ if __name__ == '__main__':
     output_dir = root / 'resultats_images' / f'sma_enemie_route_{route_id}'
 
     t0 = time.time()
-    instance = load_instance_from_folder(root=root, route_id=route_id)
+    instance = load_instance_from_folder(route_id=route_id)
     results, best, pool = run_sma_enemie(instance, output_dir=output_dir, seed=42)
     elapsed = time.time() - t0
     print_report(instance, results, best, elapsed)
