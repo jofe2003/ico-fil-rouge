@@ -1021,13 +1021,19 @@ def genetic_agent(instance, pool, seed=42):
                 enemy_score = pool.sample_enemy_score(exclude_source='genetic')
                 if enemy_score is not None:
                     result.enemy_observations += 1
-                    candidate = child
-                    steps = 2 if enemy_score + 1e-9 < child.penalized else 1
-                    for _ in range(steps):
-                        candidate = q_learning_neighbor(candidate, instance, ql, source='genetic')
-                    if candidate.penalized + 1e-9 < child.penalized:
-                        result.enemy_improvements += 1
-                        child = candidate
+                    # candidate = child
+                    # steps = 2 if enemy_score + 1e-9 < child.penalized else 1
+                    # for _ in range(steps):
+                    #     candidate = q_learning_neighbor(candidate, instance, ql, source='genetic')
+                    # if candidate.penalized + 1e-9 < child.penalized:
+                    #     result.enemy_improvements += 1
+                    #     child = candidate
+                    if enemy_score + 1e-9 < child.penalized:
+                        rotas_limpas = [two_opt_route(r, k, instance) for k, r in enumerate(child.routes)]
+                        candidate = evaluate(instance, rotas_limpas, source='genetic')
+                        if candidate.penalized + 1e-9 < child.penalized:
+                            result.enemy_improvements += 1
+                            child = candidate
 
             child.source = 'genetic'
             offspring.append(child)
@@ -1068,20 +1074,28 @@ def simulated_annealing_agent(instance, pool, seed=43):
                 pool.add(best)
             temp *= SA_ALPHA
 
+        # if random.random() < SA_ENEMY_RATE:
+        #     enemy_score = pool.sample_enemy_score(exclude_source='annealing')
+        #     if enemy_score is not None:
+        #         result.enemy_observations += 1
+        #         candidate = current
+        #         steps = 3 if enemy_score + 1e-9 < current.penalized else 1
+        #         for _ in range(steps):
+        #             candidate = q_learning_neighbor(candidate, instance, ql, source='annealing')
+        #         if candidate.penalized + 1e-9 < current.penalized:
+        #             result.enemy_improvements += 1
+        #             current = candidate
+        #             if current.penalized + 1e-9 < best.penalized:
+        #                 best = current.clone()
+        #         pool.add(candidate)
         if random.random() < SA_ENEMY_RATE:
             enemy_score = pool.sample_enemy_score(exclude_source='annealing')
             if enemy_score is not None:
                 result.enemy_observations += 1
-                candidate = current
-                steps = 3 if enemy_score + 1e-9 < current.penalized else 1
-                for _ in range(steps):
-                    candidate = q_learning_neighbor(candidate, instance, ql, source='annealing')
-                if candidate.penalized + 1e-9 < current.penalized:
-                    result.enemy_improvements += 1
-                    current = candidate
-                    if current.penalized + 1e-9 < best.penalized:
-                        best = current.clone()
-                pool.add(candidate)
+                # Se o inimigo está ganhando de mim, faço um "Re-heating" para fugir da armadilha
+                if enemy_score + 1e-9 < best.penalized:
+                    temp = SA_T0 * 0.5  # Reaquece pela metade da temperatura inicial
+                    result.enemy_improvements += 1 # Contabiliza a ação de pânico
 
         result.history.append(best.penalized)
 
@@ -1244,20 +1258,29 @@ def tabu_agent(instance, pool, seed=44):
                 best = current.clone()
                 pool.add(best)
 
+        # if random.random() < TABU_ENEMY_RATE:
+        #     enemy_score = pool.sample_enemy_score(exclude_source='tabu')
+        #     if enemy_score is not None:
+        #         result.enemy_observations += 1
+        #         candidate = current
+        #         steps = 2 if enemy_score + 1e-9 < current.penalized else 1
+        #         for _ in range(steps):
+        #             candidate = q_learning_neighbor(candidate, instance, ql, source='tabu')
+        #         if candidate.penalized + 1e-9 < current.penalized:
+        #             result.enemy_improvements += 1
+        #             current = candidate
+        #             if current.penalized + 1e-9 < best.penalized:
+        #                 best = current.clone()
+        #         pool.add(candidate)
+        
         if random.random() < TABU_ENEMY_RATE:
             enemy_score = pool.sample_enemy_score(exclude_source='tabu')
             if enemy_score is not None:
                 result.enemy_observations += 1
-                candidate = current
-                steps = 2 if enemy_score + 1e-9 < current.penalized else 1
-                for _ in range(steps):
-                    candidate = q_learning_neighbor(candidate, instance, ql, source='tabu')
-                if candidate.penalized + 1e-9 < current.penalized:
+                # Se estou perdendo feio, limpo a minha lista Tabu para parar de me restringir
+                if enemy_score + 1e-9 < best.penalized:
+                    tabu = TabuMemory(tenure=TABU_TENURE) # Reseta a memória
                     result.enemy_improvements += 1
-                    current = candidate
-                    if current.penalized + 1e-9 < best.penalized:
-                        best = current.clone()
-                pool.add(candidate)
 
         result.history.append(best.penalized)
 

@@ -871,7 +871,8 @@ def destroy_repair_move(routes, instance):
     return insert_clients_best(cand, removed, instance)
 
 
-QL_ACTIONS = ['intra_swap', 'inter_swap', 'intra_shift', 'inter_shift', 'two_intra_swap', 'two_intra_shift', 'eliminate_smallest_route', 'eliminate_random_route']
+# QL_ACTIONS = ['intra_swap', 'inter_swap', 'intra_shift', 'inter_shift', 'two_intra_swap', 'two_intra_shift', 'eliminate_smallest_route', 'eliminate_random_route']
+QL_ACTIONS = ['intra_swap', 'inter_swap', 'intra_shift', 'inter_shift', 'two_intra_swap', 'two_intra_shift', 'eliminate_smallest_route', 'eliminate_random_route', 'intra_two_opt']
 
 
 class QLearningController:
@@ -929,6 +930,8 @@ def apply_neighbor_action(routes, instance, action):
         return eliminate_smallest_route_move(routes, instance)
     if action == 'eliminate_random_route':
         return eliminate_random_route_move(routes, instance)
+    if action == 'intra_two_opt': 
+        return intra_two_opt_move(routes, instance)
     return destroy_repair_move(routes, instance)
 
 
@@ -997,11 +1000,11 @@ def intensify_from_friend(friend, instance, ql=None, source=''):
     return evaluate(instance, candidate.routes, source=candidate.source)
 
 
-def genetic_agent(instance, pool, seed=42):
+def genetic_agent(instance, pool, ql, seed=42):
     random.seed(seed)
     np.random.seed(seed)
     result = AgentResult('genetic')
-    ql = QLearningController()
+    # ql = QLearningController()
 
     population = [excel_order_initial_solution(instance), greedy_initial_solution(instance, seed)]
     while len(population) < GA_POPULATION_SIZE:
@@ -1051,11 +1054,11 @@ def genetic_agent(instance, pool, seed=42):
     return result
 
 
-def simulated_annealing_agent(instance, pool, seed=43):
+def simulated_annealing_agent(instance, pool, ql, seed=43):
     random.seed(seed)
     np.random.seed(seed)
     result = AgentResult('annealing')
-    ql = QLearningController()
+    # ql = QLearningController()
 
     current = excel_order_initial_solution(instance)
     current.source = 'annealing'
@@ -1222,11 +1225,11 @@ def best_relocate_neighbor(instance, current, tabu, aspiration):
     )
     return best_sol, best_move
 
-def tabu_agent(instance, pool, seed=44):
+def tabu_agent(instance, pool, ql, seed=44):
     random.seed(seed)
     np.random.seed(seed)
     result = AgentResult('tabu')
-    ql = QLearningController()
+    # ql = QLearningController()
 
     current = excel_order_initial_solution(instance)
     current.source = 'tabu'
@@ -1239,6 +1242,10 @@ def tabu_agent(instance, pool, seed=44):
             neighbor, inverse_move = best_relocate_neighbor(instance, current, tabu, best.penalized)
             if neighbor is None:
                 break
+
+            rotas_limpas = [two_opt_route(r, k, instance) for k, r in enumerate(neighbor.routes)]
+            neighbor = evaluate(instance, rotas_limpas, source='tabu')
+            
             current = neighbor
             tabu.add(inverse_move)
             if random.random() < 0.35:
@@ -1589,9 +1596,11 @@ def run_sma_amis(instance, output_dir, seed=42):
     pr = max(3.0, round(len(instance.customer_codes) * 0.20))
     pool = SharedPool(max_size=18, pool_radius=pr)
 
-    ga = genetic_agent(instance, pool, seed=seed)
-    sa = simulated_annealing_agent(instance, pool, seed=seed + 1)
-    tb = tabu_agent(instance, pool, seed=seed + 2)
+    ql_shared = QLearningController()
+
+    ga = genetic_agent(instance, pool, ql_shared, seed=seed)
+    sa = simulated_annealing_agent(instance, pool, ql_shared, seed=seed + 1)
+    tb = tabu_agent(instance, pool, ql_shared, seed=seed + 2)
 
     results = [ga, sa, tb]
     pool_best = pool.best()
