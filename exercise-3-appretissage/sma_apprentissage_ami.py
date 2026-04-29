@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-OMEGA = 500.0
+OMEGA = 5000.0
 DEFAULT_ROUTE_ID = 2939484
 
 GA_OUTER_CYCLES = 10
@@ -1658,7 +1658,7 @@ def print_report(instance, results, best, elapsed):
 #     instance = load_instance_from_folder(route_id=route_id)
 #     results, best, pool = run_sma_amis(instance, output_dir=output_dir, seed=42)
 #     elapsed = time.time() - t0
-#     print_report(instance, results, best, elapsed)  f
+#     print_report(instance, results, best, elapsed)  # adiciona a impressão do relatório no console
 
 
 def save_report_table_image(instance, results, best, elapsed, out_path):

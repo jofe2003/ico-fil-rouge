@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-OMEGA = 500.0
+OMEGA = 5000.0
 DEFAULT_ROUTE_ID = 2939484
 
 GA_OUTER_CYCLES = 10
@@ -1673,7 +1673,7 @@ def save_report_table_image(instance, results, best, elapsed, out_path):
             f"{res.best.penalized:.2f}",
             f"{res.best.objective:.2f}",
             f"{res.best.penalties:.2f}",
-            str(res.enemy_imports),
+            str(res.enemy_observations),
             str(res.enemy_improvements)
         ])
     
@@ -1714,7 +1714,7 @@ def save_report_table_image(instance, results, best, elapsed, out_path):
     
     # 3. Adicionar o cabeçalho (Metadados) como título da imagem
     title_text = (
-        f"SMA VRP - Collaboration Amis\n"
+        f"SMA VRP - Concurrence Ennemie\n"
         f"ROUTE_ID: {instance.route_id} | "
         f"Clients: {len(instance.customer_codes)} | "
         f"Vehicles: {len(instance.vehicle_codes)} | "
@@ -1753,7 +1753,7 @@ if __name__ == '__main__':
         # route_id_env = os.getenv('ROUTE_ID')
         # route_id = int(route_id_env) if route_id_env else DEFAULT_ROUTE_ID
         rid = choose_route_id(customers, route_id=route_id)
-        output_dir = root / 'resultats_images' / 'amis' / f'sma_appr_amis_route_{route_id}'
+        output_dir = root / 'resultats_images' / 'enemie' / f'sma_appr_enemie_route_{route_id}'
 
         t0 = time.time()
         instance = build_instance(customers, vehicles, depots, constraints, distances, rid)
