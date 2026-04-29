@@ -35,6 +35,8 @@ from pathlib import Path
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════════════
 OMEGA = 5000.0   # euros ou unités de coût par véhicule utilisé
+TRUCK_KG     = 20000.0  
+TRUCK_VOL    = 20.0     
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
 DATA_DIR  = ROOT_DIR / "ico-fil-rouge" / "BaseDeDonnees" / "BaseExcel"
@@ -224,8 +226,11 @@ def compute_penalties(solution, customers, vehicles,
         if not route:
             continue
         veh      = vehicles.iloc[k]
-        cap_w    = veh["VEHICLE_TOTAL_WEIGHT_KG"]
-        cap_v    = veh["VEHICLE_TOTAL_VOLUME_M3"]
+        # cap_w    = veh["VEHICLE_TOTAL_WEIGHT_KG"]
+        # cap_v    = veh["VEHICLE_TOTAL_VOLUME_M3"]
+        # const
+        cap_w = TRUCK_KG
+        cap_v = TRUCK_VOL
         t_start  = veh["VEHICLE_AVAILABLE_TIME_FROM_MIN"]
         veh_code = veh["VEHICLE_CODE"]
 
@@ -302,8 +307,11 @@ def greedy_solution(customers, vehicles, dist_dc, forbidden):
         for k in range(n_v):
             veh = vehicles.iloc[k]
             if (code, veh["VEHICLE_CODE"]) in forbidden: continue
-            if load_w[k] + w > veh["VEHICLE_TOTAL_WEIGHT_KG"]: continue
-            if load_v[k] + v > veh["VEHICLE_TOTAL_VOLUME_M3"]: continue
+            # if load_w[k] + w > veh["VEHICLE_TOTAL_WEIGHT_KG"]: continue
+            # if load_v[k] + v > veh["VEHICLE_TOTAL_VOLUME_M3"]: continue
+            # const
+            if load_w[k] + w > TRUCK_KG: continue
+            if load_v[k] + v > TRUCK_VOL: continue
             if dist_dc[i] < best_s:
                 best_s, best_k = dist_dc[i], k
 
@@ -479,8 +487,11 @@ def solution_metrics(solution, customers, vehicles,
     for k, route in enumerate(solution.routes):
         veh      = vehicles.iloc[k]
         veh_code = veh["VEHICLE_CODE"]
-        cap_w    = veh["VEHICLE_TOTAL_WEIGHT_KG"]
-        cap_v    = veh["VEHICLE_TOTAL_VOLUME_M3"]
+        # cap_w    = veh["VEHICLE_TOTAL_WEIGHT_KG"]
+        # cap_v    = veh["VEHICLE_TOTAL_VOLUME_M3"]
+        # const 
+        cap_w = TRUCK_KG
+        cap_v = TRUCK_VOL
         fix_cost = veh["VEHICLE_FIXED_COST_KM"]
         var_cost = veh["VEHICLE_VARIABLE_COST_KM"]
 

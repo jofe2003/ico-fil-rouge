@@ -58,10 +58,12 @@ ALL_ROUTE_IDS_PETIT = [2939484]   # route(s) présente(s) dans la petite BD
 
 # ── Paramètres Tabou ────────────────────────────────────────────────
 TAILLE_TABOU = 7
-NB_MAX_ITER  = 5000
+NB_MAX_ITER  = 3000
 SEED         = 42
 
 OMEGA = 5000.0   # euros ou unités de coût par véhicule utilisé
+TRUCK_KG     = 20000.0   
+TRUCK_VOL    = 20.0      
 
 IMAGE_ROOT_TABOU = Path("images_tabou")
 COLORS_TABOU = ["#E63946", "#2A9D8F", "#F4A261", "#457B9D", "#6A4C93", "#1982C4", "#8AC926", "#FF595E"]
@@ -353,8 +355,8 @@ def extraire_route(route_id, customers_all, vehicles_all, depots_all,
 
     veh_list = [{
         'code'        : get_veh_code(v),
-        'cap_kg'      : fval(v, 'VEHICLE_TOTAL_WEIGHT_KG',         9999.0),
-        'cap_m3'      : fval(v, 'VEHICLE_TOTAL_VOLUME_M3',         9999.0),
+        'cap_kg'      : TRUCK_KG,
+        'cap_m3'      : TRUCK_VOL,
         'cout_fixe'   : fval(v, 'VEHICLE_FIXED_COST_KM',              0.0),
         'cout_var_km' : fval(v, 'VEHICLE_VARIABLE_COST_KM',           1.0),
         'dispo_from'  : fval(v, 'VEHICLE_AVAILABLE_TIME_FROM_MIN',     0.0),
