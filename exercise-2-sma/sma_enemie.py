@@ -1367,8 +1367,8 @@ def save_report_table_image(instance, results, best, elapsed, out_path):
             f"{res.best.penalized:.2f}",
             f"{res.best.objective:.2f}",
             f"{res.best.penalties:.2f}",
-            str(res.friend_imports),
-            str(res.friend_improvements)
+            str(res.enemy_imports),
+            str(res.enemy_improvements)
         ])
     
     # Adicionar o "global_best" como a última linha
