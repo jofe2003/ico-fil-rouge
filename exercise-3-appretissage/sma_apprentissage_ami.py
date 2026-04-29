@@ -1658,7 +1658,7 @@ def print_report(instance, results, best, elapsed):
 #     instance = load_instance_from_folder(route_id=route_id)
 #     results, best, pool = run_sma_amis(instance, output_dir=output_dir, seed=42)
 #     elapsed = time.time() - t0
-#     print_report(instance, results, best, elapsed)
+#     print_report(instance, results, best, elapsed)  f
 
 
 def save_report_table_image(instance, results, best, elapsed, out_path):
