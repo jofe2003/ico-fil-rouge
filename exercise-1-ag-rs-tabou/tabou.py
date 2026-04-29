@@ -25,6 +25,7 @@ import time
 import sys
 from collections import defaultdict
 from pathlib import Path
+import pandas as pd
 
 import matplotlib
 matplotlib.use("Agg")
@@ -57,8 +58,10 @@ ALL_ROUTE_IDS_PETIT = [2939484]   # route(s) présente(s) dans la petite BD
 
 # ── Paramètres Tabou ────────────────────────────────────────────────
 TAILLE_TABOU = 7
-NB_MAX_ITER  = 500
+NB_MAX_ITER  = 5000
 SEED         = 42
+
+OMEGA = 5000.0   # euros ou unités de coût par véhicule utilisé
 
 IMAGE_ROOT_TABOU = Path("images_tabou")
 COLORS_TABOU = ["#E63946", "#2A9D8F", "#F4A261", "#457B9D", "#6A4C93", "#1982C4", "#8AC926", "#FF595E"]
@@ -459,7 +462,7 @@ def calculer_f_objectif(routes, dist_mat, veh_list):
         if not any(c != 0 for c in route):
             continue
         dist_route  = calculer_distance_route(route, dist_mat)
-        omega_k_x  += veh_list[k]['cout_fixe']
+        omega_k_x  += OMEGA
         sum_c_ij   += veh_list[k]['cout_var_km'] * dist_route
     return omega_k_x + sum_c_ij
 
@@ -741,6 +744,62 @@ def afficher_solution(routes, clients, veh_list, dist_mat, temps_mat, titre):
         print("    " + " → ".join(codes))
     print()
 
+def save_route_table_tabou(res, routes_fin, clients, veh_list, dist_mat, temps_mat, out_dir):
+    """Salva a tabela de métricas da rota em route_XXXXXX/tableau_tabou.png"""
+    rows = []
+    for v, route in enumerate(routes_fin):
+        n_cli     = sum(1 for c in route if c != 0)
+        charge_kg = sum(clients[c - 1]['poids_kg']  for c in route if c != 0)
+        charge_m3 = sum(clients[c - 1]['volume_m3'] for c in route if c != 0)
+        cap_kg    = veh_list[v]['cap_kg']
+        cap_m3    = veh_list[v]['cap_m3']
+        dist_rte  = calculer_distance_route(route, dist_mat)
+        omega_k   = OMEGA            if n_cli > 0 else 0.0
+        arc_k     = veh_list[v]['cout_var_km'] * dist_rte if n_cli > 0 else 0.0
+        hdep      = veh_list[v]['dispo_from']
+        statut    = "OK" if fenetres_temps_ok(route, clients, temps_mat, hdep) else "VIOLATION"
+
+        rows.append({
+            "Véhicule"       : veh_list[v]['code'],
+            "Clients"        : n_cli,
+            "Poids (kg)"     : round(charge_kg, 1),
+            "Cap. Poids"     : round(cap_kg, 1),
+            "Volume (m³)"    : round(charge_m3, 3),
+            "Cap. Vol."      : round(cap_m3, 3),
+            "Distance (km)"  : round(dist_rte, 2),
+            "ω (fixe)"       : round(omega_k, 2),
+            "Σc_ij (variable)": round(arc_k, 2),
+            "f_route(x)"     : round(omega_k + arc_k, 2),
+            "TW"             : statut,
+        })
+
+    df = pd.DataFrame(rows)
+
+    fig_h   = 1.5 + len(df) * 0.5
+    fig, ax = plt.subplots(figsize=(18, fig_h))
+    ax.axis('off')
+    tbl = ax.table(cellText=df.values,
+                   colLabels=df.columns,
+                   loc='center', cellLoc='center')
+    tbl.auto_set_font_size(False)
+    tbl.set_fontsize(8)
+    tbl.scale(1.1, 1.7)
+    for (row, col), cell in tbl.get_celld().items():
+        if row == 0:
+            cell.set_facecolor('#E63946')
+            cell.set_text_props(weight='bold', color='white')
+
+    plt.title(
+        f"Métriques Route {res['route_id']} — TABOU\n"
+        f"f(x) = {res['cout_final']:,.1f}  |  Amélio : {res['amelio']:.1f}%",
+        fontsize=10, fontweight='bold', pad=12
+    )
+    plt.tight_layout()
+    path = out_dir / "tableau_tabou.png"
+    plt.savefig(path, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"  Tableau sauvegardé : {path}")
+    return path
 
 # ══════════════════════════════════════════════════════════════════════
 # BLOC 11 : TRAITEMENT COMPLET D'UNE ROUTE
@@ -785,10 +844,18 @@ def traiter_route(route_id, customers_all, vehicles_all, depots_all,
     )
     omega_fin, arc_fin, _ = decomposer_cout(routes_fin, dist_mat, veh_list)
 
+    res = {
+        'route_id'  : route_id,
+        'cout_final': cout_final,
+        'amelio'    : amelio,
+    }
+
     out_dir = get_route_image_dir_tabou(route_id)
     plot_tabou_convergence(history, route_id, out_dir)
     plot_tabou_routes(routes_init, depot, clients, route_id, out_dir, "initial")
     plot_tabou_routes(routes_fin, depot, clients, route_id, out_dir, "final")
+    save_route_table_tabou(res, routes_fin, clients, veh_list,
+                           dist_mat, temps_mat, out_dir)
 
     if verbose:
         afficher_solution(routes_fin, clients, veh_list, dist_mat, temps_mat,
@@ -857,6 +924,44 @@ def afficher_bilan(resultats, titre):
     print("  Σc_ij  = Σ VEHICLE_VARIABLE_COST_KM × distance_km  (coût des arcs)")
     print("  ViolTW = nombre de routes avec violation de fenêtre de temps")
     print(SEP1)
+
+    rows = []
+    for r in resultats:
+        rows.append({
+            'Route ID'   : r['route_id'],
+            'Clients'    : r['n_clients'],
+            'Veh'        : r['n_veh'],
+            'f_init'     : round(r['cout_init'],  2),
+            'f_final'    : round(r['cout_final'], 2),
+            'ω·K'        : round(r['omega_final'],2),
+            'Σc_ij'      : round(r['arc_final'],  2),
+            'Dist (km)'  : round(r['dist_fin'],   2),
+            'Amélio (%)'  : round(r['amelio'],    1),
+            'Temps (s)'  : round(r['temps_exec'], 2),
+            'ViolTW'     : r['violations'],
+        })
+
+    df = pd.DataFrame(rows)
+
+    fig_h   = 1.5 + len(df) * 0.5
+    fig, ax = plt.subplots(figsize=(18, fig_h))
+    ax.axis('off')
+    tbl = ax.table(cellText=df.values,
+                   colLabels=df.columns,
+                   loc='center', cellLoc='center')
+    tbl.auto_set_font_size(False)
+    tbl.set_fontsize(8)
+    tbl.scale(1.1, 1.7)
+    for (row, col), cell in tbl.get_celld().items():
+        if row == 0:
+            cell.set_facecolor('#E63946')
+            cell.set_text_props(weight='bold', color='white')
+    plt.title(titre, fontsize=11, fontweight='bold', pad=14)
+    plt.tight_layout()
+    path_img = IMAGE_ROOT_TABOU / f"bilan_{titre[:20].strip().replace(' ','_')}.png"
+    plt.savefig(path_img, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"  Tabela salva: {path_img}")
 
 
 # ══════════════════════════════════════════════════════════════════════

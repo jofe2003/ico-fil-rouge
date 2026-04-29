@@ -34,7 +34,7 @@ from pathlib import Path
 # ══════════════════════════════════════════════════════════════════════
 # CONFIGURATION
 # ══════════════════════════════════════════════════════════════════════
-
+OMEGA = 5000.0   # euros ou unités de coût par véhicule utilisé
 ROOT_DIR = Path(__file__).resolve().parents[1]
 
 DATA_DIR  = ROOT_DIR / "ico-fil-rouge" / "BaseDeDonnees" / "BaseExcel"
@@ -189,7 +189,7 @@ def compute_vehicle_cost(solution, vehicles):
     total = 0.0
     for k, route in enumerate(solution.routes):
         if route:   # véhicule utilisé
-            total += vehicles.iloc[k]["VEHICLE_FIXED_COST_KM"]
+            total += OMEGA
     return total
 
 
@@ -517,7 +517,7 @@ def solution_metrics(solution, customers, vehicles,
             "Volume (m³)"      : round(rv, 3),
             "Cap. Vol."        : round(cap_v, 3),
             "Distance (km)"    : round(d, 2),
-            "ω (fixe)"         : round(fix_cost, 2),
+            "ω (fixe)"         : 5000,
             "Σc_ij (variable)" : round(arc_c, 2),
             "f_route(x)"       : round(f_route, 2),   # ω_k + Σc_ij_k
             "Violations"       : viol,
@@ -597,6 +597,33 @@ def fig_routes(solution, customers, vehicles, depot, stats, route_id, tag, out_d
     plt.savefig(path, dpi=150, bbox_inches="tight");  plt.close()
     return path
 
+def save_route_table(df_metrics, stats, route_id, tag, route_out_dir):
+    """Salva a tabela de métricas da rota em route_out_dir/tableau_{tag}.png"""
+    fig_h   = 1.5 + len(df_metrics) * 0.5
+    fig, ax = plt.subplots(figsize=(18, fig_h))
+    ax.axis('off')
+    tbl = ax.table(cellText=df_metrics.values,
+                   colLabels=df_metrics.columns,
+                   loc='center', cellLoc='center')
+    tbl.auto_set_font_size(False)
+    tbl.set_fontsize(8)
+    tbl.scale(1.1, 1.7)
+    for (row, col), cell in tbl.get_celld().items():
+        if row == 0:
+            cell.set_facecolor('#2A9D8F')
+            cell.set_text_props(weight='bold', color='white')
+
+    plt.title(
+        f"Métriques Route {route_id} — {tag.upper()}\n"
+        f"f(x) = {stats['cost_final']:,.1f}  |  Gain : {stats['gain_pct']:.1f}%",
+        fontsize=10, fontweight='bold', pad=12
+    )
+    plt.tight_layout()
+    path = route_out_dir / f"tableau_{tag}.png"
+    plt.savefig(path, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"  Tableau sauvegardé : {path}")
+    return path
 
 def save_summary_table(all_stats, tag, out_dir):
     df = pd.DataFrame(all_stats)
@@ -618,6 +645,8 @@ def save_summary_table(all_stats, tag, out_dir):
         "n_violations": "Violations",
     })
 
+    route_id = str(df_out["Route ID"].iloc[0])
+
     for col in ["f(x) initial", "f(x) final", "Distance (km)", "Gain (%)", "Temps (s)"]:
         if col in df_out:
             df_out[col] = df_out[col].round(2)
@@ -625,6 +654,28 @@ def save_summary_table(all_stats, tag, out_dir):
     path_csv = out_dir / f"tableau_{tag}.csv"
     df_out.to_csv(path_csv, index=False, sep=";", decimal=",")
     print(f"\n  Tableau sauvegardé : {path_csv}")
+
+    fig_h   = 1.5 + len(df_out) * 0.5
+    fig, ax = plt.subplots(figsize=(18, fig_h))
+    ax.axis('off')
+    tbl = ax.table(cellText=df_out.values,
+                   colLabels=df_out.columns,
+                   loc='center', cellLoc='center')
+    tbl.auto_set_font_size(False)
+    tbl.set_fontsize(8)
+    tbl.scale(1.1, 1.7)
+    for (row, col), cell in tbl.get_celld().items():
+        if row == 0:
+            cell.set_facecolor('#2A9D8F')
+            cell.set_text_props(weight='bold', color='white')
+    plt.title(f"Résultats Recuit Simulé — {tag.upper()}",
+              fontsize=11, fontweight='bold', pad=14)
+    plt.tight_layout()
+    path_img = out_dir / f"route_{route_id}" / f"tableau_{tag}.png"
+    plt.savefig(path_img, dpi=200, bbox_inches='tight')
+    plt.close()
+    print(f"  Tabela salva: {path_img}")
+    # ─────────────────────────────────────────────────────────────
     return path_csv
 
 
@@ -671,6 +722,7 @@ def run_route(route_id, df_customers, df_vehicles, df_depots, df_distances,
 
     fig_convergence(hist_cost, hist_temp, hist_accept, stats, route_id, tag, route_out_dir)
     fig_routes(best, customers, vehicles, depot, stats, route_id, tag, route_out_dir)
+    save_route_table(df_metrics, stats, route_id, tag, route_out_dir)
 
     return best, hist_cost, stats, df_metrics
 
